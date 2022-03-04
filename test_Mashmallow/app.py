@@ -40,8 +40,8 @@ class ProductSchema(ma.Schema):
 
 
 # Init schema
-product_schema = ProductSchema(strict=True)
-products_schema = ProductSchema(many=True, strict=True)
+product_schema = ProductSchema()
+products_schema = ProductSchema(many=True)
 
 # Create a Product
 
@@ -67,7 +67,7 @@ def add_product():
 def get_products():
     all_products = Product.query.all()
     result = products_schema.dump(all_products)
-    return jsonify(result.data)
+    return jsonify(result)
 
 # Get Single Products
 
