@@ -13,14 +13,14 @@ USE cube_test_db;
 
 DROP TABLE IF EXISTS `admin`;
 CREATE TABLE `admin` (
-  `admin_id` varchar(60) NOT NULL,
+  `adminId` varchar(60) NOT NULL,
   `name` varchar(128) NOT NULL,
   `photoUrl` varchar(128) NOT NULL,
   `country` varchar(60) NOT NULL,
   `city` varchar(60) NOT NULL,
   `emailAddress` varchar(60) NOT NULL,
   `phone` varchar(60) NOT NULL,
-  PRIMARY KEY (`admin_id`)
+  PRIMARY KEY (`adminId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
@@ -28,11 +28,11 @@ CREATE TABLE `admin` (
 -- Table structure for table `industries`
 --
 
-DROP TABLE IF EXISTS `industries`;
-CREATE TABLE `industries` (
-  `industry_id` varchar(60) NOT NULL,
-  `industry_name` varchar(60) NOT NULL,
-  PRIMARY KEY (`industry_id`)
+DROP TABLE IF EXISTS `industry`;
+CREATE TABLE `industry` (
+  `industryId` varchar(60) NOT NULL,
+  `industryName` varchar(60) NOT NULL,
+  PRIMARY KEY (`industryId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -49,11 +49,11 @@ CREATE TABLE `startup_general` (
   `emailAddress` varchar(60) NOT NULL,
   `phone` varchar(60) NOT NULL,
   `founders` SMALLINT NOT NULL,
-  `female_founders` SMALLINT NOT NULL,
+  `femaleFounders` SMALLINT NOT NULL,
   `industry` varchar(60) NOT NULL,
   `active` BOOLEAN NOT NULL DEFAULT TRUE,
   PRIMARY KEY (`pymeId`),
-  FOREIGN KEY (`industry`) REFERENCES `industries` (`industry_id`)
+  FOREIGN KEY (`industry`) REFERENCES `industry` (`industryId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -79,12 +79,10 @@ CREATE TABLE `user` (
 
 DROP TABLE IF EXISTS `user_startup`;
 CREATE TABLE `user_startup` (
-  `id` varchar(60) NOT NULL,
-  `user_id` varchar(60) NOT NULL,
+  `userId` varchar(60) NOT NULL,
   `rights` varchar(128) NOT NULL,
   `pymeId` varchar(60) NOT NULL,
-  PRIMARY KEY (`id`),
-  FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+  FOREIGN KEY (`userId`) REFERENCES `user` (`id`),
   FOREIGN KEY (`pymeId`) REFERENCES `startup_general` (`pymeId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -94,13 +92,11 @@ CREATE TABLE `user_startup` (
 
 DROP TABLE IF EXISTS `user_cube`;
 CREATE TABLE `user_cube` (
-  `id` varchar(60) NOT NULL,
-  `user_id` varchar(60) NOT NULL,
+  `userId` varchar(60) NOT NULL,
   `rights` varchar(128) NOT NULL,
-  `admin_id` varchar(60) NOT NULL,
-  PRIMARY KEY (`id`),
-  FOREIGN KEY (`admin_id`) REFERENCES `admin` (`admin_id`),
-  FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+  `adminId` varchar(60) NOT NULL,
+  FOREIGN KEY (`adminId`) REFERENCES `admin` (`adminId`),
+  FOREIGN KEY (`userId`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -109,12 +105,10 @@ CREATE TABLE `user_cube` (
 
 DROP TABLE IF EXISTS `authentication`;
 CREATE TABLE `authentication` (
-  `id` varchar(60) NOT NULL,
-  `user_id` varchar(60) NOT NULL,
-  `access_user` varchar(128) NOT NULL,
+  `userId` varchar(60) NOT NULL,
+  `accessUser` varchar(128) NOT NULL,
   `password` varchar(60) NOT NULL,
-  PRIMARY KEY (`id`),
-  FOREIGN KEY (`user_id`) REFERENCES `user_startup` (`user_id`)
+  FOREIGN KEY (`userId`) REFERENCES `user_startup` (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
@@ -124,12 +118,10 @@ CREATE TABLE `authentication` (
 
 DROP TABLE IF EXISTS `authen_admin`;
 CREATE TABLE `authen_admin` (
-  `id` varchar(60) NOT NULL,
-  `admin_id` varchar(60) NOT NULL,
-  `access_user` varchar(128) NOT NULL,
+  `adminId` varchar(60) NOT NULL,
+  `accessUser` varchar(128) NOT NULL,
   `password` varchar(60) NOT NULL,
-  PRIMARY KEY (`id`),
-  FOREIGN KEY (`admin_id`) REFERENCES `user_cube` (`user_id`)
+  FOREIGN KEY (`adminId`) REFERENCES `user_cube` (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -138,7 +130,6 @@ CREATE TABLE `authen_admin` (
 
 DROP TABLE IF EXISTS `kpi_updating`;
 CREATE TABLE `kpi_updating` (
-  `id` varchar(60) NOT NULL,
   `date` date NOT NULL,
   `pymeId` varchar(60) NOT NULL,
   `revenue` FLOAT NOT NULL,
@@ -149,6 +140,5 @@ CREATE TABLE `kpi_updating` (
   `fundraising` FLOAT NOT NULL,
   `CAC` FLOAT NOT NULL,
   `active_clients` mediumint NOT NULL,
-  PRIMARY KEY (`id`),
   FOREIGN KEY (`pymeId`) REFERENCES `startup_general` (`pymeId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
