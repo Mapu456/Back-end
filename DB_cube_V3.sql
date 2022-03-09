@@ -57,26 +57,17 @@ CREATE TABLE `startup_general` (
 
 DROP TABLE IF EXISTS `kpi_general`;
 CREATE TABLE `kpi_general` (
-  `kpi_id` varchar(60) NOT NULL,
-  `name` varchar(128) NOT NULL,
-  `active` BOOLEAN NOT NULL DEFAULT TRUE,
-  `attribute` varchar(60) NOT NULL,
-  `unit` SMALLINT NOT NULL,
-  PRIMARY KEY (`kpi_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Table structure for table `startup_kpi`
---
-
-DROP TABLE IF EXISTS `startup_kpi`;
-CREATE TABLE `startup_kpi` (
   `startup_id` varchar(60) NOT NULL,
-  `kpi_id` varchar(60) NOT NULL,
-  FOREIGN KEY (`startup_id`) REFERENCES `startup_general` (`startup_id`),
-  FOREIGN KEY (`kpi_id`) REFERENCES `kpi_general` (`kpi_id`)
+  `revenue` FLOAT NOT NULL,
+  `ARR` FLOAT NOT NULL,
+  `EBITDA` FLOAT NOT NULL,
+  `GMV` FLOAT NOT NULL,
+  `number_employees` SMALLINT NOT NULL,
+  `fundraising` FLOAT NOT NULL,
+  `CAC` FLOAT NOT NULL,
+  `active_clients` mediumint NOT NULL,
+  FOREIGN KEY (`startup_id`) REFERENCES `startup_general` (`startup_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
 
 --
 -- Table structure for table `user`
