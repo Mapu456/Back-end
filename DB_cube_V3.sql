@@ -15,6 +15,11 @@ DROP TABLE IF EXISTS `admin`;
 CREATE TABLE `admin` (
   `admin_id` varchar(60) NOT NULL,
   `name` varchar(128) NOT NULL,
+  `photoUrl` varchar(128) NOT NULL,
+  `country` varchar(60) NOT NULL,
+  `city` varchar(60) NOT NULL,
+  `emailAddress` varchar(60) NOT NULL,
+  `phone` varchar(60) NOT NULL,
   PRIMARY KEY (`admin_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -36,18 +41,18 @@ CREATE TABLE `industries` (
 
 DROP TABLE IF EXISTS `startup_general`;
 CREATE TABLE `startup_general` (
-  `startup_id` varchar(60) NOT NULL,
+  `pymeId` varchar(60) NOT NULL,
   `name` varchar(128) NOT NULL,
-  `logo` varchar(128) NOT NULL,
+  `photoUrl` varchar(128) NOT NULL,
   `country` varchar(60) NOT NULL,
   `city` varchar(60) NOT NULL,
-  `email` varchar(60) NOT NULL,
+  `emailAddress` varchar(60) NOT NULL,
   `phone` varchar(60) NOT NULL,
   `founders` SMALLINT NOT NULL,
   `female_founders` SMALLINT NOT NULL,
   `industry` varchar(60) NOT NULL,
   `active` BOOLEAN NOT NULL DEFAULT TRUE,
-  PRIMARY KEY (`startup_id`),
+  PRIMARY KEY (`pymeId`),
   FOREIGN KEY (`industry`) REFERENCES `industries` (`industry_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -57,7 +62,8 @@ CREATE TABLE `startup_general` (
 
 DROP TABLE IF EXISTS `kpi_general`;
 CREATE TABLE `kpi_general` (
-  `startup_id` varchar(60) NOT NULL,
+  `id` varchar(60) NOT NULL,
+  `pymeId` varchar(60) NOT NULL,
   `revenue` FLOAT NOT NULL,
   `ARR` FLOAT NOT NULL,
   `EBITDA` FLOAT NOT NULL,
@@ -66,7 +72,8 @@ CREATE TABLE `kpi_general` (
   `fundraising` FLOAT NOT NULL,
   `CAC` FLOAT NOT NULL,
   `active_clients` mediumint NOT NULL,
-  FOREIGN KEY (`startup_id`) REFERENCES `startup_general` (`startup_id`)
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`pymeId`) REFERENCES `startup_general` (`pymeId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -75,9 +82,15 @@ CREATE TABLE `kpi_general` (
 
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
-  `user_id` varchar(60) NOT NULL,
-  `name` varchar(128) NOT NULL,
-  PRIMARY KEY (`user_id`)
+  `id` varchar(60) NOT NULL,
+  `firstname` varchar(128) NOT NULL,
+  `Lastname` varchar(128) NOT NULL,
+  `cityOfResidence` varchar(128) NOT NULL,
+  `countryOfResidence` varchar(128) NOT NULL,
+  `photoUrl` varchar(128) NOT NULL,
+  `phone` varchar(128) NOT NULL,
+  `emailAddress` varchar(128) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -86,10 +99,13 @@ CREATE TABLE `user` (
 
 DROP TABLE IF EXISTS `user_startup`;
 CREATE TABLE `user_startup` (
+  `id` varchar(60) NOT NULL,
   `user_id` varchar(60) NOT NULL,
-  `startup_id` varchar(60) NOT NULL,
-  FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`),
-  FOREIGN KEY (`startup_id`) REFERENCES `startup_general` (`startup_id`)
+  `rights` varchar(128) NOT NULL,
+  `pymeId` varchar(60) NOT NULL,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+  FOREIGN KEY (`pymeId`) REFERENCES `startup_general` (`pymeId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -98,13 +114,14 @@ CREATE TABLE `user_startup` (
 
 DROP TABLE IF EXISTS `user_cube`;
 CREATE TABLE `user_cube` (
+  `id` varchar(60) NOT NULL,
+  `user_id` varchar(60) NOT NULL,
+  `rights` varchar(128) NOT NULL,
   `admin_id` varchar(60) NOT NULL,
-  `cube_id` varchar(60) NOT NULL,
+  PRIMARY KEY (`id`),
   FOREIGN KEY (`admin_id`) REFERENCES `admin` (`admin_id`),
-  FOREIGN KEY (`cube_id`) REFERENCES `user` (`user_id`)
+  FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-
 
 --
 -- Table structure for table `authentication`
@@ -112,10 +129,12 @@ CREATE TABLE `user_cube` (
 
 DROP TABLE IF EXISTS `authentication`;
 CREATE TABLE `authentication` (
+  `id` varchar(60) NOT NULL,
   `user_id` varchar(60) NOT NULL,
   `access_user` varchar(128) NOT NULL,
   `password` varchar(60) NOT NULL,
-  FOREIGN KEY (`user_id`) REFERENCES `user_startup` (`user_id`)
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
@@ -125,9 +144,31 @@ CREATE TABLE `authentication` (
 
 DROP TABLE IF EXISTS `authen_admin`;
 CREATE TABLE `authen_admin` (
+  `id` varchar(60) NOT NULL,
   `admin_id` varchar(60) NOT NULL,
   `access_user` varchar(128) NOT NULL,
   `password` varchar(60) NOT NULL,
-  FOREIGN KEY (`admin_id`) REFERENCES `user_cube` (`admin_id`)
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`admin_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Table structure for table `kpi_updating`
+--
+
+DROP TABLE IF EXISTS `kpi_updating`;
+CREATE TABLE `kpi_updating` (
+  `id` varchar(60) NOT NULL,
+  `date` date NOT NULL,
+  `pymeId` varchar(60) NOT NULL,
+  `revenue` FLOAT NOT NULL,
+  `ARR` FLOAT NOT NULL,
+  `EBITDA` FLOAT NOT NULL,
+  `GMV` FLOAT NOT NULL,
+  `number_employees` SMALLINT NOT NULL,
+  `fundraising` FLOAT NOT NULL,
+  `CAC` FLOAT NOT NULL,
+  `active_clients` mediumint NOT NULL,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`pymeId`) REFERENCES `startup_general` (`pymeId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
