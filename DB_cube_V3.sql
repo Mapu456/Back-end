@@ -57,26 +57,6 @@ CREATE TABLE `startup_general` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Table structure for table `kpi_general`
---
-
-DROP TABLE IF EXISTS `kpi_general`;
-CREATE TABLE `kpi_general` (
-  `id` varchar(60) NOT NULL,
-  `pymeId` varchar(60) NOT NULL,
-  `revenue` FLOAT NOT NULL,
-  `ARR` FLOAT NOT NULL,
-  `EBITDA` FLOAT NOT NULL,
-  `GMV` FLOAT NOT NULL,
-  `number_employees` SMALLINT NOT NULL,
-  `fundraising` FLOAT NOT NULL,
-  `CAC` FLOAT NOT NULL,
-  `active_clients` mediumint NOT NULL,
-  PRIMARY KEY (`id`),
-  FOREIGN KEY (`pymeId`) REFERENCES `startup_general` (`pymeId`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
 -- Table structure for table `user`
 --
 
@@ -134,7 +114,7 @@ CREATE TABLE `authentication` (
   `access_user` varchar(128) NOT NULL,
   `password` varchar(60) NOT NULL,
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+  FOREIGN KEY (`user_id`) REFERENCES `user_startup` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
@@ -149,7 +129,7 @@ CREATE TABLE `authen_admin` (
   `access_user` varchar(128) NOT NULL,
   `password` varchar(60) NOT NULL,
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`admin_id`) REFERENCES `user` (`id`)
+  FOREIGN KEY (`admin_id`) REFERENCES `user_cube` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
