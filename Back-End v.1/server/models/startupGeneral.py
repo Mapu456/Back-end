@@ -2,6 +2,7 @@ from flask_sqlalchemy import SQLAlchemy
 from models.db import db
 from models.user import User
 
+
 # table startupGeneral
 class StartupGeneral(db.Model):
     __tablename__ = 'startupGeneral'
