@@ -11,12 +11,12 @@ from models.industry import Industry
 from models.startupGeneral import StartupGeneral
 from models.permission import Permission
 from models.user import User
-from dbSchemas.ma import ma
-from dbSchemas.startupGeneralSchema import StartupGeneralSchema
-""" from dbSchemas.adminSchema import AdminSchema
-from dbSchemas.industrySchema import IndustrySchema
-from dbSchemas.permissionSchema import PermissionSchema """
-from dbSchemas.userSchema import UserSchema
+from schemas.ma import ma
+from schemas.startupGeneralSchema import StartupGeneralSchema
+from schemas.adminSchema import AdminSchema
+from schemas.industrySchema import IndustrySchema
+from schemas.permissionSchema import PermissionSchema
+from schemas.userSchema import UserSchema
 import json
 
 

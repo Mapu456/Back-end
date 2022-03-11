@@ -15,8 +15,8 @@ class User(db.Model):
     phone = db.Column(db.String(128))
     emailAddress = db.Column(db.String(128))
     right = db.Column(db.String(60), db.ForeignKey('permission.permissionId'))
-    userBasicId = db.Column(db.String(60), db.ForeignKey('startupGeneral.
-                                                         startupId'))
+    userBasicId = db.Column(db.String(60),
+                            db.ForeignKey('startupGeneral.startupId'))
     accessUser = db.Column(db.String(128))
     password = db.Column(db.String(60))
 

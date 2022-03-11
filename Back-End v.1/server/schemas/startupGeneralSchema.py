@@ -1,5 +1,5 @@
 from flask_marshmallow import Marshmallow
-from dbSchemas.ma import ma
+from schemas.ma import ma
 
 
 class StartupGeneralSchema(ma.Schema):
