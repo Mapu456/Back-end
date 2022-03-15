@@ -15,3 +15,4 @@ class Permission(db.Model):
     def __init__(self, permissionId, permissionRight):
         self.permissionId = permissionId
         self.permissionRight = permissionRight
+

@@ -1,11 +1,12 @@
 from flask_sqlalchemy import SQLAlchemy
 from models.db import db
 from models.user import User
+from models.kpiRegister import KpiRegister
 
 
-# table startupGeneral
-class StartupGeneral(db.Model):
-    __tablename__ = 'startupGeneral'
+# table startup
+class Startup(db.Model):
+    __tablename__ = 'startup'
 
     startupId = db.Column(db.String(60), primary_key=True)
     name = db.Column(db.String(128))
@@ -19,6 +20,7 @@ class StartupGeneral(db.Model):
     industry = db.Column(db.String(60), db.ForeignKey('industry.industryId'))
     active = db.Column(db.Boolean)
     users = db.relationship('User', backref='startup_id', lazy=True)
+    registers = db.relationship('KpiRegister', backref='startup_id', lazy=True)
 
     def __init__(self, startupId, name, photoUrl, country, city,
                  emailAddress, phone, founders, femaleFounders, industry,

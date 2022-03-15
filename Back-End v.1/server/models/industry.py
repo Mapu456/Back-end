@@ -1,6 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from models.db import db
-from models.startupGeneral import StartupGeneral
+from models.startup import Startup
 
 
 # table industry
@@ -9,7 +9,7 @@ class Industry(db.Model):
 
     industryId = db.Column(db.String(60), primary_key=True)
     industryName = db.Column(db.String(60))
-    startupgenerals = db.relationship('StartupGeneral', backref='industry_id',
+    startups = db.relationship('Startup', backref='industry_id',
                                       lazy=True)
 
     def __init__(self, industryId, industryName):

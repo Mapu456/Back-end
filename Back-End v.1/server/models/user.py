@@ -6,7 +6,7 @@ from models.db import db
 class User(db.Model):
     __tablename__ = 'user'
 
-    id = db.Column(db.String(60), primary_key=True)
+    userId = db.Column(db.String(60), primary_key=True)
     firstname = db.Column(db.String(128))
     lastname = db.Column(db.String(128))
     cityOfResidence = db.Column(db.String(128))
@@ -16,14 +16,14 @@ class User(db.Model):
     emailAddress = db.Column(db.String(128))
     right = db.Column(db.String(60), db.ForeignKey('permission.permissionId'))
     userBasicId = db.Column(db.String(60),
-                            db.ForeignKey('startupGeneral.startupId'))
+                            db.ForeignKey('startup.startupId'))
     accessUser = db.Column(db.String(128))
     password = db.Column(db.String(60))
 
-    def __init__(self, id, firstname, lastname, cityOfResidence,
+    def __init__(self, userId, firstname, lastname, cityOfResidence,
                  countryOfResidence, photoUrl, phone, emailAddress, right,
                  userBasicId, accessUser, password):
-        id = id
+        userId = userId
         firstname = firstname
         lastname = lastname
         cityOfResidence = cityOfResidence
