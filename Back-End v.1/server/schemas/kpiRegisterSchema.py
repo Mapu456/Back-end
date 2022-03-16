@@ -4,5 +4,5 @@ from schemas.ma import ma
 
 class KpiRegisterSchema(ma.Schema):
     class Meta:
-        fields = ("date", "startupId", "revenue", "ARR", "EBITDA", "GMV",
+        fields = ("kpiId", "date", "startupId", "revenue", "ARR", "EBITDA", "GMV",
                  "numberEmployees", "fundRaising", "CAC", "activeClients")

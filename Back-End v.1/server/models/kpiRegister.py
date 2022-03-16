@@ -5,20 +5,22 @@ from models.db import db
 class KpiRegister(db.Model):
     __tablename__ = 'kpiRegister'
 
-    date = db.Column(db.date)
+    kpiId = db.Column(db.String(60), primary_key=True)
+    date = db.Column(db.DateTime)
     startupId = db.Column(db.String(60), db.ForeignKey('startup.startupId'))
-    revenue = db.Column(db.float)
-    ARR = db.Column(db.float)
-    EBITDA = db.Column(db.float)
-    GMV = db.Column(db.float)
+    revenue = db.Column(db.Float)
+    ARR = db.Column(db.Float)
+    EBITDA = db.Column(db.Float)
+    GMV = db.Column(db.Float)
     numberEmployees = db.Column(db.Integer)
-    fundRaising = db.Column(db.float)
-    CAC = db.Column(db.float)
+    fundRaising = db.Column(db.Float)
+    CAC = db.Column(db.Float)
     activeClients = db.Column(db.Integer)
 
-    def __init__(self, date, startupId, revenue, ARR, EBITDA, GMV,
+    def __init__(self, kpiId, date, startupId, revenue, ARR, EBITDA, GMV,
                  numberEmployees, fundRaising, CAC, activeClients):
 
+        self.kpiId = kpiId
         self.date = date
         self.startupId = startupId
         self.revenue = revenue
