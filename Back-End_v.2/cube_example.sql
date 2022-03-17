@@ -127,11 +127,11 @@ INSERT INTO `user` VALUES
 UNLOCK TABLES;
 
 --
--- Table structure for table `user_role`
+-- Table structure for table `userRole`
 --
 
-DROP TABLE IF EXISTS `user_role`;
-CREATE TABLE `user_role` (
+DROP TABLE IF EXISTS `userRole`;
+CREATE TABLE `userRole` (
   `userId` varchar(60) NOT NULL,
   `roleId` varchar(60) NOT NULL,
   FOREIGN KEY (`userId`) REFERENCES `user` (`userId`),
@@ -140,18 +140,18 @@ CREATE TABLE `user_role` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `user_role`
+-- Dumping data for table `userRole`
 --
-LOCK TABLES `user_role` WRITE;
-INSERT INTO `user_role` VALUES ('SR1','1adm'), ('KB1','2ru'), ('ED2','2ru'), ('TM3','2ru'), ('AB4','2ru'), ('JD5','2ru');
+LOCK TABLES `userRole` WRITE;
+INSERT INTO `userRole` VALUES ('SR1','1adm'), ('KB1','2ru'), ('ED2','2ru'), ('TM3','2ru'), ('AB4','2ru'), ('JD5','2ru');
 UNLOCK TABLES;
 
 --
--- Table structure for table `role_permission`
+-- Table structure for table `rolePermission`
 --
 
-DROP TABLE IF EXISTS `role_permission`;
-CREATE TABLE `role_permission` (
+DROP TABLE IF EXISTS `rolePermission`;
+CREATE TABLE `rolePermission` (
   `roleId` varchar(60) NOT NULL,
   `permissionId` varchar(60) NOT NULL,
   FOREIGN KEY (`roleId`) REFERENCES `role` (`roleId`),
@@ -160,10 +160,10 @@ CREATE TABLE `role_permission` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `role_permission`
+-- Dumping data for table `rolePermission`
 --
-LOCK TABLES `role_permission` WRITE;
-INSERT INTO `role_permission` VALUES ('1adm','0A1'),('2ru','0B2');
+LOCK TABLES `rolePermission` WRITE;
+INSERT INTO `rolePermission` VALUES ('1adm','0A1'),('2ru','0B2');
 UNLOCK TABLES;
 
 
