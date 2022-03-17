@@ -10,7 +10,7 @@ from models.industry import Industry
 from models.role import Role
 from models.startup import Startup
 from models.permission import Permission
-from models.user import User
+from models.user import *
 from models.kpiRegister import KpiRegister
 from schemas.ma import ma
 from schemas.industrySchema import IndustrySchema
@@ -21,8 +21,13 @@ from schemas.userSchema import UserSchema
 from schemas.kpiRegisterSchema import KpiRegisterSchema
 from schemas.role_permissionSchema import Role_permissionSchema
 from schemas.user_roleSchema import User_roleSchema
+from sqlalchemy import exc
 import json
+import uuid
+from werkzeug.security import generate_password_hash, check_password_hash
 
+
+app.config['SECRET_KEY'] = 'thisissecret'
 
 db.create_all()
 
@@ -96,6 +101,26 @@ def get_user_pyme(id):
 
     return result
 
+
+#create new user
+
+@app.route('/user', methods=['POST'])
+def create_user():
+    #if not current_user.admin:
+    #    return jsonify({'message' : 'Cannot perform that function!'})
+
+    print(request.json)
+    data = request.get_json()
+
+    hashed_password = generate_password_hash(data['password'], method='sha256')
+
+    new_user = User(userId=str(uuid.uuid4()), password=hashed_password, cityOfResidence=data['cityOfResidence'],
+                countryOfResidence=data['countryOfResidence'], emailAddress=data['emailAddress'], firstname=data['firstname'],
+                lastname=data['lastname'], phone=data['phone'], photoUrl=data['photoUrl'])
+    db.session.add(new_user)
+    db.session.commit()
+
+    return jsonify({'message' : 'New user created!'})
 
 if __name__ == "__main__":
     app.run(debug=True)
