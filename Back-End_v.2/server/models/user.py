@@ -8,7 +8,7 @@ from models.user_role import userRole
 class User(db.Model):
     __tablename__ = 'user'
 
-    userId = db.Column(db.String(60), primary_key=True)
+    userId = db.Column(db.String(60), primary_key=True, autoincrement=False)
     firstname = db.Column(db.String(128))
     lastname = db.Column(db.String(128))
     cityOfResidence = db.Column(db.String(128))
