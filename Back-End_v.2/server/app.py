@@ -111,16 +111,44 @@ def create_user():
 
     print(request.json)
     data = request.get_json()
+    print(data)
 
     hashed_password = generate_password_hash(data['password'], method='sha256')
 
-    new_user = User(userId=str(uuid.uuid4()), password=hashed_password, cityOfResidence=data['cityOfResidence'],
+    print(hashed_password)
+
+    print(data['emailAddress'])
+    print(data['phone'])
+    print(data['firstname'])
+
+
+    new_user = User(userId =str(uuid.uuid4()), password=hashed_password, cityOfResidence=data['cityOfResidence'],
                 countryOfResidence=data['countryOfResidence'], emailAddress=data['emailAddress'], firstname=data['firstname'],
                 lastname=data['lastname'], phone=data['phone'], photoUrl=data['photoUrl'])
+    print([new_user])
     db.session.add(new_user)
     db.session.commit()
 
     return jsonify({'message' : 'New user created!'})
+
+@app.route('/user/<userId>', methods=['DELETE'])
+def delete_user(userId):
+    #if not current_user.admin:
+    #    return jsonify({'message' : 'Cannot perform that function!'})
+
+    user = User.query.filter_by(userId=userId).first()
+
+    if not user:
+        return jsonify({'message' : 'No user found!'})
+
+    db.session.delete(user)
+    db.session.commit()
+
+    return jsonify({'message' : 'The user has been deleted!'})
+
+
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)
