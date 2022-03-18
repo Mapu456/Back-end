@@ -44,6 +44,28 @@ startup_schemas = StartupSchema(many=True)
 user_schemas = UserSchema(many=True)
 kpi_register_schemas = KpiRegisterSchema(many=True)
 
+
+def token_required(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        token = None
+
+        if 'x-access-token' in request.headers:
+            token = request.headers['x-access-token']
+
+        if not token:
+            return jsonify({'message' : 'Token is missing!'}), 401
+
+        try: 
+            data = jwt.decode(token, app.config['SECRET_KEY'])
+            current_user = User.query.filter_by(userId=data['userId']).first()
+        except:
+            return jsonify({'message' : 'Token is invalid!'}), 401
+
+        return f(current_user, *args, **kwargs)
+
+    return decorated
+
 # GET x ID
 
 @app.route('/<val>/<id>', methods=['GET'])
@@ -117,13 +139,6 @@ def create_user():
 
     hashed_password = generate_password_hash(data['password'], method='sha256')
 
-    print(hashed_password)
-
-    print(data['emailAddress'])
-    print(data['phone'])
-    print(data['firstname'])
-
-
     new_user = User(userId =str(uuid.uuid4()), password=hashed_password, cityOfResidence=data['cityOfResidence'],
                 countryOfResidence=data['countryOfResidence'], emailAddress=data['emailAddress'], firstname=data['firstname'],
                 lastname=data['lastname'], phone=data['phone'], photoUrl=data['photoUrl'])
@@ -155,18 +170,36 @@ def login():
     if not auth or not auth.username or not auth.password:
         return make_response('Could not verify', 401, {'WWW-Authenticate' : 'Basic realm="Login required!"'})
 
-    user = User.query.filter_by(userId=auth.username).first()
+    user = User.query.filter_by(emailAddress=auth.username).first()
 
     if not user:
         return make_response('Could not verify', 401, {'WWW-Authenticate' : 'Basic realm="Login required!"'})
 
     if check_password_hash(user.password, auth.password):
-        token = jwt.encode({'userId' : user.userId, 'exp' : datetime.datetime.utcnow() + datetime.timedelta(minutes=30)}, app.config['SECRET_KEY'])
+        token = jwt.encode({'emailAddress' : user.emailAddress, 'exp' : datetime.datetime.utcnow() + datetime.timedelta(minutes=30)}, app.config['SECRET_KEY'])
 
         return jsonify({'token' : token})
 
     return make_response('Could not verify', 401, {'WWW-Authenticate' : 'Basic realm="Login required!"'})
 
+
+#create new kpi
+
+@app.route('/startup', methods=['POST'])
+def kpi_register():
+    #if not current_user.admin:
+    #    return jsonify({'message' : 'Cannot perform that function!'})
+
+    data = request.get_json()
+
+    new_kpi = KpiRegister(kpiId = data['kpiId'], date=data['date'], startupId=data['startupId'],
+        revenue=data['revenue'], ARR=data['ARR'], EBITDA=data['EBITDA'], GMV=data['GMV'],
+        numberEmployees=data['numberEmployees'], fundRaising=data['fundRaising'], CAC=data['CAC'],
+        activeClients=data['activeClients'])
+    db.session.add(new_kpi)
+    db.session.commit()
+
+    return jsonify({'message' : 'New kpi register created!'})
 
 if __name__ == "__main__":
     app.run(debug=True)
