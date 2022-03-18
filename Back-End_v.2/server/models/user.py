@@ -22,12 +22,12 @@ class User(db.Model):
 
     def __init__(self, userId, firstname, lastname, cityOfResidence,
                  countryOfResidence, photoUrl, phone, emailAddress, password):
-        userId = userId
-        firstname = firstname
-        lastname = lastname
-        cityOfResidence = cityOfResidence
-        countryOfResidence = countryOfResidence
-        photoUrl = photoUrl
-        phone = phone
-        emailAddress = emailAddress
-        password = password
+        self.userId = userId
+        self.firstname = firstname
+        self.lastname = lastname
+        self.cityOfResidence = cityOfResidence
+        self.countryOfResidence = countryOfResidence
+        self.photoUrl = photoUrl
+        self.phone = phone
+        self.emailAddress = emailAddress
+        self.password = password
