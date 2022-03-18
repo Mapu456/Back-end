@@ -75,7 +75,7 @@ def unprotected():
 
 @app.route('/protected')
 @token_required
-def protected():
+def protected(current_user):
     return jsonify({'message' : 'This is on available for people with valid tokens.'})
 
 # GET x ID
