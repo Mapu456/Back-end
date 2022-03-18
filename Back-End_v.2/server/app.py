@@ -81,6 +81,7 @@ def protected(current_user):
 
 @app.route('/<val>/<id>', methods=['GET'])
 def get_register_by_id(val, id):
+
     if val == "startup":
         table = Startup
         val_schema = startup_schema
@@ -196,7 +197,7 @@ def login():
 
 #create new kpi
 
-@app.route('/startup', methods=['POST'])
+@app.route('/startup/kpi', methods=['POST'])
 def kpi_register():
     #if not current_user.admin:
     #    return jsonify({'message' : 'Cannot perform that function!'})
