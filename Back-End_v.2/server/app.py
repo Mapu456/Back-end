@@ -52,13 +52,16 @@ def token_required(f):
 
         if 'x-access-token' in request.headers:
             token = request.headers['x-access-token']
+            print(token)
 
         if not token:
             return jsonify({'message' : 'Token is missing!'}), 401
 
         try: 
-            data = jwt.decode(token, app.config['SECRET_KEY'])
+            data = jwt.decode(token, app.config['SECRET_KEY'], algorithms=['HS256', ])
+            print(data)
             current_user = User.query.filter_by(emailAddress=data['emailAddress']).first()
+            print(current_user)
         except:
             return jsonify({'message' : 'Token is invalid!'}), 401
 
@@ -66,16 +69,14 @@ def token_required(f):
 
     return decorated
 
-
 @app.route('/unprotected')
 def unprotected():
     return jsonify({'message' : 'Anyone can view this!'})
 
 @app.route('/protected')
+@token_required
 def protected():
     return jsonify({'message' : 'This is on available for people with valid tokens.'})
-
-
 
 # GET x ID
 
