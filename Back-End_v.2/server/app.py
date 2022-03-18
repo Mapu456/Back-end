@@ -125,12 +125,13 @@ def create_user():
     new_user = User(userId =str(uuid.uuid4()), password=hashed_password, cityOfResidence=data['cityOfResidence'],
                 countryOfResidence=data['countryOfResidence'], emailAddress=data['emailAddress'], firstname=data['firstname'],
                 lastname=data['lastname'], phone=data['phone'], photoUrl=data['photoUrl'])
-    print([new_user])
+    print(new_user)
     db.session.add(new_user)
     db.session.commit()
 
     return jsonify({'message' : 'New user created!'})
 
+#delete user
 @app.route('/user/<userId>', methods=['DELETE'])
 def delete_user(userId):
     #if not current_user.admin:

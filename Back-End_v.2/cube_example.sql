@@ -108,7 +108,7 @@ CREATE TABLE `user` (
   `photoUrl` varchar(128) NOT NULL,
   `phone` varchar(128) NOT NULL,
   `emailAddress` varchar(128) NOT NULL,
-  `password` varchar(60) NOT NULL,
+  `password` varchar(128) NOT NULL,
   PRIMARY KEY (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
