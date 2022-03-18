@@ -16,7 +16,7 @@ class User(db.Model):
     photoUrl = db.Column(db.String(128))
     phone = db.Column(db.String(128))
     emailAddress = db.Column(db.String(128))
-    password = db.Column(db.String(60))
+    password = db.Column(db.String(128))
     roles = db.relationship('Role', secondary=userRole, lazy='subquery',
         back_populates="users")
 
