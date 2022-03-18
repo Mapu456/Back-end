@@ -1,7 +1,7 @@
 from json.tool import main
 from crypt import methods
 from unicodedata import name
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, make_response
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import NoResultFound
 from flask_marshmallow import Marshmallow
@@ -25,7 +25,9 @@ from sqlalchemy import exc
 import json
 import uuid
 from werkzeug.security import generate_password_hash, check_password_hash
-
+import jwt
+import datetime
+from functools import wraps
 
 app.config['SECRET_KEY'] = 'thisissecret'
 
@@ -109,9 +111,9 @@ def create_user():
     #if not current_user.admin:
     #    return jsonify({'message' : 'Cannot perform that function!'})
 
-    print(request.json)
+    #print(request.json)
     data = request.get_json()
-    print(data)
+    #print(data)
 
     hashed_password = generate_password_hash(data['password'], method='sha256')
 
@@ -125,7 +127,6 @@ def create_user():
     new_user = User(userId =str(uuid.uuid4()), password=hashed_password, cityOfResidence=data['cityOfResidence'],
                 countryOfResidence=data['countryOfResidence'], emailAddress=data['emailAddress'], firstname=data['firstname'],
                 lastname=data['lastname'], phone=data['phone'], photoUrl=data['photoUrl'])
-    print(new_user)
     db.session.add(new_user)
     db.session.commit()
 
@@ -147,8 +148,24 @@ def delete_user(userId):
 
     return jsonify({'message' : 'The user has been deleted!'})
 
+@app.route('/login')
+def login():
+    auth = request.authorization
 
+    if not auth or not auth.username or not auth.password:
+        return make_response('Could not verify', 401, {'WWW-Authenticate' : 'Basic realm="Login required!"'})
 
+    user = User.query.filter_by(userId=auth.username).first()
+
+    if not user:
+        return make_response('Could not verify', 401, {'WWW-Authenticate' : 'Basic realm="Login required!"'})
+
+    if check_password_hash(user.password, auth.password):
+        token = jwt.encode({'userId' : user.userId, 'exp' : datetime.datetime.utcnow() + datetime.timedelta(minutes=30)}, app.config['SECRET_KEY'])
+
+        return jsonify({'token' : token.decode('UTF-8')})
+
+    return make_response('Could not verify', 401, {'WWW-Authenticate' : 'Basic realm="Login required!"'})
 
 
 if __name__ == "__main__":
