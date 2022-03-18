@@ -66,6 +66,17 @@ def token_required(f):
 
     return decorated
 
+
+@app.route('/unprotected')
+def unprotected():
+    return jsonify({'message' : 'Anyone can view this!'})
+
+@app.route('/protected')
+def protected():
+    return jsonify({'message' : 'This is on available for people with valid tokens.'})
+
+
+
 # GET x ID
 
 @app.route('/<val>/<id>', methods=['GET'])
