@@ -52,7 +52,7 @@ def token_required(f):
 
         if 'x-access-token' in request.headers:
             token = request.headers['x-access-token']
-            print(token)
+            #print(token)
 
         if not token:
             return jsonify({'message' : 'Token is missing!'}), 401
@@ -80,8 +80,8 @@ def protected(current_user):
 # GET x ID
 
 @app.route('/<val>/<id>', methods=['GET'])
+#@token_required
 def get_register_by_id(val, id):
-
     if val == "startup":
         table = Startup
         val_schema = startup_schema
@@ -104,6 +104,7 @@ def get_register_by_id(val, id):
 # GET
 
 @app.route('/<val>', methods=['GET'])
+#@token_required
 def get_registers(val):
     if val == "startup":
         table = Startup
