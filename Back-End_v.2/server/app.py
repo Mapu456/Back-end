@@ -128,9 +128,12 @@ def get_user_pyme(id):
     except NoResultFound:
         return {"message": "User could not be found."}, 400
     result = user_schema.dump(user)  # return a writable json
-    pyme_result = Startup.query.get(result["userBasicId"])
-    [result.pop(key) for key in ['accessUser', 'password']]
+    #print(result)
+    pyme_result = Startup.query.get(result["userId"])
+    print(pyme_result)
+    [result.pop(key) for key in ['userId', 'password']]
     result_dict = startup_schema.dump(pyme_result)
+    print(result_dict)
     [result_dict.pop(key) for key in ['founders', 'femaleFounders',
                                       'industry']]
     result['pyme'] = result_dict
