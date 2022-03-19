@@ -44,57 +44,6 @@ INSERT INTO `industry` VALUES ('01','Proptech'),('02','LegalTech'),('03','Health
 UNLOCK TABLES;
 
 --
--- Table structure for table `startup`
---
-
-DROP TABLE IF EXISTS `startup`;
-CREATE TABLE `startup` (
-  `startupId` varchar(60) NOT NULL,
-  `name` varchar(128) NOT NULL,
-  `photoUrl` varchar(128) NOT NULL,
-  `country` varchar(60) NOT NULL,
-  `city` varchar(60) NOT NULL,
-  `emailAddress` varchar(60) NOT NULL,
-  `phone` varchar(60) NOT NULL,
-  `founders` SMALLINT NOT NULL,
-  `femaleFounders` SMALLINT NOT NULL,
-  `industry` varchar(60) NOT NULL,
-  `active` BOOLEAN NOT NULL DEFAULT TRUE,
-  PRIMARY KEY (`startupId`),
-  FOREIGN KEY (`industry`) REFERENCES `industry` (`industryId`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `startup`
---
-LOCK TABLES `startup` WRITE;
-INSERT INTO `startup` VALUES
-('start1','asisvisa','www.google.com', 'USA', 'New York', '123@cube.com', '12105661896', '3', '1', '01', '1'),
-('start2','torre', 'www.google.com', 'USA', 'Silicon Valley', '456@cube.com', '12105661896', '2', '1','02', '1'),
- ('start3','voyyo', 'www.google.com', 'Colombia', 'Bogota', '456@cube.com', '12105661896', '3', '1','03', '1'),
- ('start4','check', 'www.google.com', 'Colombia', 'Bogota', '012@cube.com', '573111234890', '4', '3','04', '1'),
- ('start5','igo', 'www.google.com', 'Mexico', 'Mexico DF', '345@cube.com', '573111234890', '3', '1','05', '1');
-UNLOCK TABLES;
-
---
--- Table structure for table `permission`
---
-
-DROP TABLE IF EXISTS `permission`;
-CREATE TABLE `permission` (
-  `permissionId` varchar(60) NOT NULL,
-  `permissionRight` varchar(128) NOT NULL,
-  PRIMARY KEY (`permissionId`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `permission`
---
-LOCK TABLES `permission` WRITE;
-INSERT INTO `permission` VALUES ('0A1','admin_right'),('0B2','ruser_right');
-UNLOCK TABLES;
-
---
 -- Table structure for table `user`
 --
 
@@ -125,6 +74,62 @@ INSERT INTO `user` VALUES
 ('JD5','Jack','Dole', 'Mexico DF', 'Mexico', 'www.google.com', '573111234500', '456@gmail.com', '89712kdsa')
 ;
 UNLOCK TABLES;
+
+
+--
+-- Table structure for table `startup`
+--
+
+DROP TABLE IF EXISTS `startup`;
+CREATE TABLE `startup` (
+  `startupId` varchar(60) NOT NULL,
+  `userId` varchar(60) NOT NULL,
+  `name` varchar(128) NOT NULL,
+  `photoUrl` varchar(128) NOT NULL,
+  `country` varchar(60) NOT NULL,
+  `city` varchar(60) NOT NULL,
+  `emailAddress` varchar(60) NOT NULL,
+  `phone` varchar(60) NOT NULL,
+  `founders` SMALLINT NOT NULL,
+  `femaleFounders` SMALLINT NOT NULL,
+  `industry` varchar(60) NOT NULL,
+  `active` BOOLEAN NOT NULL DEFAULT TRUE,
+  PRIMARY KEY (`startupId`),
+  FOREIGN KEY (`industry`) REFERENCES `industry` (`industryId`),
+  FOREIGN KEY (`userId`) REFERENCES `user` (`userId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `startup`
+--
+LOCK TABLES `startup` WRITE;
+INSERT INTO `startup` VALUES
+('start1','KB1', 'asisvisa','www.google.com', 'USA', 'New York', '123@cube.com', '12105661896', '3', '1', '01', '1'),
+('start2','ED2', 'torre', 'www.google.com', 'USA', 'Silicon Valley', '456@cube.com', '12105661896', '2', '1','02', '1'),
+ ('start3','TM3', 'voyyo', 'www.google.com', 'Colombia', 'Bogota', '456@cube.com', '12105661896', '3', '1','03', '1'),
+ ('start4','AB4', 'check', 'www.google.com', 'Colombia', 'Bogota', '012@cube.com', '573111234890', '4', '3','04', '1'),
+ ('start5','JD5', 'igo', 'www.google.com', 'Mexico', 'Mexico DF', '345@cube.com', '573111234890', '3', '1','05', '1');
+UNLOCK TABLES;
+
+--
+-- Table structure for table `permission`
+--
+
+DROP TABLE IF EXISTS `permission`;
+CREATE TABLE `permission` (
+  `permissionId` varchar(60) NOT NULL,
+  `permissionRight` varchar(128) NOT NULL,
+  PRIMARY KEY (`permissionId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `permission`
+--
+LOCK TABLES `permission` WRITE;
+INSERT INTO `permission` VALUES ('0A1','admin_right'),('0B2','ruser_right');
+UNLOCK TABLES;
+
+
 
 --
 -- Table structure for table `userRole`
