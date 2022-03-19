@@ -32,3 +32,6 @@ class User(db.Model):
         self.phone = phone
         self.emailAddress = emailAddress
         self.password = password
+
+    def __str__(self):
+        return str(self.__class__) + ": " + str(self.__dict__)
