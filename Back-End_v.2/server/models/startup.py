@@ -1,6 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from models.db import db
-from models.user import *
+from models.user import User
 from models.kpiRegister import *
 
 # table startup
@@ -8,6 +8,7 @@ class Startup(db.Model):
     __tablename__ = 'startup'
 
     startupId = db.Column(db.String(60), primary_key=True)
+    userId = db.Column(db.String(60), db.ForeignKey('user.userId'))
     name = db.Column(db.String(128))
     photoUrl = db.Column(db.String(128))
     country = db.Column(db.String(60))

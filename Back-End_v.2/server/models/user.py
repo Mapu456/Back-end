@@ -19,6 +19,7 @@ class User(db.Model):
     password = db.Column(db.String(128))
     roles = db.relationship('Role', secondary=userRole, lazy='subquery',
         back_populates="users")
+    startups = db.relationship('Startup', backref='user_id', lazy=True)
 
     def __init__(self, userId, firstname, lastname, cityOfResidence,
                  countryOfResidence, photoUrl, phone, emailAddress, password):
