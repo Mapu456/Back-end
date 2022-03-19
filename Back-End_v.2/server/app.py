@@ -63,7 +63,8 @@ def token_required(f):
             print(data)
             current_user = User.query.filter_by(emailAddress=data['emailAddress']).first()
             print(type(current_user))      
-            print(current_user)       
+            print(current_user)
+            print(current_user.emailAddress)   
         except:
             return jsonify({'message' : 'Token is invalid!'}), 401
 
@@ -80,11 +81,12 @@ def unprotected():
 def protected(current_user):
     return jsonify({'message' : 'This is on available for people with valid tokens.'})
 
+
 # GET x ID
 
 @app.route('/<val>/<id>', methods=['GET'])
-#@token_required
-def get_register_by_id(val, id):
+@token_required
+def get_register_by_id(current_user, val, id):
     if val == "startup":
         table = Startup
         val_schema = startup_schema
@@ -107,8 +109,8 @@ def get_register_by_id(val, id):
 # GET
 
 @app.route('/<val>', methods=['GET'])
-#@token_required
-def get_registers(val):
+@token_required
+def get_registers(current_user, val):
     if val == "startup":
         table = Startup
         val_schemas = startup_schemas
@@ -127,7 +129,8 @@ def get_registers(val):
 
 
 @app.route('/user_pyme/<id>', methods=['GET'])
-def get_user_pyme(id):
+@token_required
+def get_user_pyme(current_user, id):
     try:
         user = User.query.filter(User.userId == id).one()
     except NoResultFound:
@@ -146,7 +149,8 @@ def get_user_pyme(id):
 #create new user
 
 @app.route('/user', methods=['POST'])
-def create_user():
+@token_required
+def create_user(current_user):
     #if not current_user.admin:
     #    return jsonify({'message' : 'Cannot perform that function!'})
 
@@ -166,7 +170,8 @@ def create_user():
 
 #delete user
 @app.route('/user/<userId>', methods=['DELETE'])
-def delete_user(userId):
+@token_required
+def delete_user(current_user, userId):
     #if not current_user.admin:
     #    return jsonify({'message' : 'Cannot perform that function!'})
 
@@ -203,7 +208,8 @@ def login():
 #create new kpi
 
 @app.route('/startup/kpi', methods=['POST'])
-def kpi_register():
+@token_required
+def kpi_register(current_user):
     #if not current_user.admin:
     #    return jsonify({'message' : 'Cannot perform that function!'})
 
