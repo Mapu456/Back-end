@@ -119,9 +119,10 @@ def get_registers(val):
         table = KpiRegister
         val_schemas = kpi_register_schemas
     
-    val_id = exec("%s" % ("table."+val+"Id"))
+    #val_id = exec("%s" % ("table."+val+"Id"))
     results = table.query.all()
     val_results = val_schemas.dump(results)
+    print(val_results)
     return jsonify(val_results)
 
 
