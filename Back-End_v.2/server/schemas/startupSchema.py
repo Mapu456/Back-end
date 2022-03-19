@@ -4,6 +4,6 @@ from schemas.ma import ma
 
 class StartupSchema(ma.Schema):
     class Meta:
-        fields = ('startupId', 'name', 'photoUrl', 'country', 'city',
+        fields = ('startupId', 'userId','name', 'photoUrl', 'country', 'city',
                   'emailAddress', 'phone', 'founders', 'femaleFounders',
                   'industry', 'active')
