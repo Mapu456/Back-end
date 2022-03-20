@@ -130,6 +130,9 @@ def get_registers(current_user, val):
 @app.route('/user_pyme/<id>', methods=['GET'])
 @token_required
 def get_user_pyme(current_user, id):
+    if not current_user.admin:
+        return jsonify({'message' : 'Cannot perform that function!'})
+
     try:
         user = User.query.filter(User.userId == id).one()
     except NoResultFound:
@@ -150,8 +153,8 @@ def get_user_pyme(current_user, id):
 @app.route('/user', methods=['POST'])
 @token_required
 def create_user(current_user):
-    #if not current_user.admin:
-    #    return jsonify({'message' : 'Cannot perform that function!'})
+    if not current_user.admin:
+        return jsonify({'message' : 'Cannot perform that function!'})
 
     #print(request.json)
     data = request.get_json()
@@ -171,8 +174,8 @@ def create_user(current_user):
 @app.route('/user/<userId>', methods=['DELETE'])
 @token_required
 def delete_user(current_user, userId):
-    #if not current_user.admin:
-    #    return jsonify({'message' : 'Cannot perform that function!'})
+    if not current_user.admin:
+        return jsonify({'message' : 'Cannot perform that function!'})
 
     user = User.query.filter_by(userId=userId).first()
 
@@ -210,8 +213,8 @@ def login():
 @app.route('/startup', methods=['POST'])
 @token_required
 def create_startup(current_user):
-    #if not current_user.admin:
-    #    return jsonify({'message' : 'Cannot perform that function!'})
+    if not current_user.admin:
+        return jsonify({'message' : 'Cannot perform that function!'})
 
     #print(request.json)
     data = request.get_json()
