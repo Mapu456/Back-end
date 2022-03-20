@@ -205,6 +205,30 @@ def login():
     return make_response('Could not verify', 401, {'WWW-Authenticate' : 'Basic realm="Login required!"'})
 
 
+#create new startup
+
+@app.route('/startup', methods=['POST'])
+@token_required
+def create_startup(current_user):
+    #if not current_user.admin:
+    #    return jsonify({'message' : 'Cannot perform that function!'})
+
+    #print(request.json)
+    data = request.get_json()
+    #print(data)
+
+    new_startup = Startup(startupId = data['startupId'], userId=data['userId'], name=data['name'],
+        photoUrl=data['photoUrl'], country=data['country'], city=data['city'],
+        emailAddress=data['emailAddress'], phone=data['phone'], founders=data['founders'],
+        femaleFounders=data['femaleFounders'], industry=data['industry'], active=data['active'])
+    db.session.add(new_startup)
+    db.session.commit()
+
+    return jsonify({'message' : 'New startup created!'})
+
+
+
+
 #create new kpi
 
 @app.route('/startup/kpi', methods=['POST'])
@@ -223,6 +247,13 @@ def kpi_register(current_user):
     db.session.commit()
 
     return jsonify({'message' : 'New kpi register created!'})
+
+
+
+
+
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)
