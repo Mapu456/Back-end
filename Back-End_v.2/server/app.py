@@ -124,10 +124,6 @@ def get_registers(current_user, val):
     #val_id = exec("%s" % ("table."+val+"Id"))
     results = table.query.all()
     val_results = val_schemas.dump(results)
-
-    print(type(userRole))
-    testing = userRole
-    print(testing)
     return jsonify(val_results)
 
 
@@ -165,7 +161,7 @@ def create_user(current_user):
 
     new_user = User(userId =str(uuid.uuid4()), password=hashed_password, cityOfResidence=data['cityOfResidence'],
                 countryOfResidence=data['countryOfResidence'], emailAddress=data['emailAddress'], firstname=data['firstname'],
-                lastname=data['lastname'], phone=data['phone'], photoUrl=data['photoUrl'])
+                lastname=data['lastname'], phone=data['phone'], photoUrl=data['photoUrl'], admin=data['admin'])
     db.session.add(new_user)
     db.session.commit()
 
@@ -187,6 +183,7 @@ def delete_user(current_user, userId):
     db.session.commit()
 
     return jsonify({'message' : 'The user has been deleted!'})
+
 
 @app.route('/login')
 def login():
