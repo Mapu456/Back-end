@@ -17,12 +17,13 @@ class User(db.Model):
     phone = db.Column(db.String(128))
     emailAddress = db.Column(db.String(128))
     password = db.Column(db.String(128))
+    admin = db.Column(db.Boolean)
     roles = db.relationship('Role', secondary=userRole, lazy='subquery',
         back_populates="users")
     startups = db.relationship('Startup', backref='user_id', lazy=True)
 
     def __init__(self, userId, firstname, lastname, cityOfResidence,
-                 countryOfResidence, photoUrl, phone, emailAddress, password):
+                 countryOfResidence, photoUrl, phone, emailAddress, password, admin):
         self.userId = userId
         self.firstname = firstname
         self.lastname = lastname
@@ -32,6 +33,7 @@ class User(db.Model):
         self.phone = phone
         self.emailAddress = emailAddress
         self.password = password
+        self.admin = admin
 
     def __str__(self):
         return str(self.__class__) + ": " + str(self.__dict__)

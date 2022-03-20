@@ -234,7 +234,7 @@ def create_startup(current_user):
 
 #create new kpi
 
-@app.route('/startup/kpi', methods=['POST'])
+@app.route('/kpi', methods=['POST'])
 @token_required
 def kpi_register(current_user):
     #if not current_user.admin:
