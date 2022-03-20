@@ -227,16 +227,30 @@ def create_startup(current_user):
 
     return jsonify({'message' : 'New startup created!'})
 
+#Delete startup
+@app.route('/startup/<startupId>', methods=['DELETE'])
+@token_required
+def delete_startup(current_user, startupId):
+    if not current_user.admin:
+        return jsonify({'message' : 'Cannot perform that function!'})
+
+    startup = Startup.query.filter_by(startupId=startupId).first()
+
+    if not startup:
+        return jsonify({'message' : 'No startup found!'})
+
+    db.session.delete(startup)
+    db.session.commit()
+
+    return jsonify({'message' : 'The startup has been deleted!'})
 
 
 
-#create new kpi
+#create new kpi register
 
 @app.route('/kpi', methods=['POST'])
 @token_required
 def kpi_register(current_user):
-    #if not current_user.admin:
-    #    return jsonify({'message' : 'Cannot perform that function!'})
 
     data = request.get_json()
 
@@ -248,6 +262,23 @@ def kpi_register(current_user):
     db.session.commit()
 
     return jsonify({'message' : 'New kpi register created!'})
+
+#Delete kpi register
+@app.route('/kpi/<kpiId>', methods=['DELETE'])
+@token_required
+def delete_kpi_register(current_user, kpiId):
+    
+    Kpi_register = KpiRegister.query.filter_by(kpiId=kpiId).first()
+
+    if not Kpi_register:
+        return jsonify({'message' : 'No kpi record found!'})
+
+    db.session.delete(Kpi_register)
+    db.session.commit()
+
+    return jsonify({'message' : 'The kpi record has been deleted!'})
+
+
 
 
 if __name__ == "__main__":
