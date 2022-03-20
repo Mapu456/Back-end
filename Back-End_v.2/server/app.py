@@ -30,7 +30,7 @@ import jwt
 import datetime
 from functools import wraps
 
-app.config['SECRET_KEY'] = 'thisissecret'
+app.config['SECRET_KEY'] = 'LMhHnM9~,xUy@A&t'
 
 db.create_all()
 
