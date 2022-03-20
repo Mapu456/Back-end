@@ -45,6 +45,7 @@ startup_schemas = StartupSchema(many=True)
 user_schemas = UserSchema(many=True)
 kpi_register_schemas = KpiRegisterSchema(many=True)
 
+#Decorator for token support
 
 def token_required(f):
     @wraps(f)
@@ -59,12 +60,7 @@ def token_required(f):
 
         try: 
             data = jwt.decode(token, app.config['SECRET_KEY'], algorithms=['HS256', ])
-            #print(type(data))
-            #print(data)
             current_user = User.query.filter_by(emailAddress=data['emailAddress']).first()
-            #print(type(current_user))      
-            #print(current_user)
-            #print(current_user.emailAddress)   
         except:
             return jsonify({'message' : 'Token is invalid!'}), 401
 
@@ -72,17 +68,63 @@ def token_required(f):
 
     return decorated
 
+#Testing user access. No token needed
 @app.route('/unprotected')
 def unprotected():
     return jsonify({'message' : 'Anyone can view this!'})
 
+
+#Testing user access. Token needed
 @app.route('/protected')
 @token_required
 def protected(current_user):
     return jsonify({'message' : 'This is on available for people with valid tokens.'})
 
 
-# GET x ID
+#Login endpoint. No @token_required needed.
+
+@app.route('/login')
+def login():
+    auth = request.authorization
+
+    if not auth or not auth.username or not auth.password:
+        return make_response('Could not verify', 401, {'WWW-Authenticate' : 'Basic realm="Login required!"'})
+
+    user = User.query.filter_by(emailAddress=auth.username).first()
+
+    if not user:
+        return make_response('Could not verify', 401, {'WWW-Authenticate' : 'Basic realm="Login required!"'})
+
+    if check_password_hash(user.password, auth.password):
+        token = jwt.encode({'emailAddress' : user.emailAddress, 'exp' : datetime.datetime.utcnow() + datetime.timedelta(minutes=30)}, app.config['SECRET_KEY'])
+
+        return jsonify({'token' : token})
+
+    return make_response('Could not verify', 401, {'WWW-Authenticate' : 'Basic realm="Login required!"'})
+
+
+# Get all users, startups and KPIs. 
+
+@app.route('/<val>', methods=['GET'])
+@token_required
+def get_registers(current_user, val):
+    if val == "startup":
+        table = Startup
+        val_schemas = startup_schemas
+    elif val == "user":
+        table = User
+        val_schemas = user_schemas
+    elif val == "kpi":
+        table = KpiRegister
+        val_schemas = kpi_register_schemas
+    
+    #val_id = exec("%s" % ("table."+val+"Id"))
+    results = table.query.all()
+    val_results = val_schemas.dump(results)
+    return jsonify(val_results)
+
+
+# Get specific user, startup or KPI using id. 
 
 @app.route('/<val>/<id>', methods=['GET'])
 @token_required
@@ -106,26 +148,7 @@ def get_register_by_id(current_user, val, id):
     return val_schema.jsonify(result)
 
 
-# GET
-
-@app.route('/<val>', methods=['GET'])
-@token_required
-def get_registers(current_user, val):
-    if val == "startup":
-        table = Startup
-        val_schemas = startup_schemas
-    elif val == "user":
-        table = User
-        val_schemas = user_schemas
-    elif val == "kpi":
-        table = KpiRegister
-        val_schemas = kpi_register_schemas
-    
-    #val_id = exec("%s" % ("table."+val+"Id"))
-    results = table.query.all()
-    val_results = val_schemas.dump(results)
-    return jsonify(val_results)
-
+# Get startup info from user id. 
 
 @app.route('/user_pyme/<id>', methods=['GET'])
 @token_required
@@ -148,7 +171,7 @@ def get_user_pyme(current_user, id):
     return result
 
 
-#create new user
+#Create new user
 
 @app.route('/user', methods=['POST'])
 @token_required
@@ -156,10 +179,7 @@ def create_user(current_user):
     if not current_user.admin:
         return jsonify({'message' : 'Cannot perform that function!'})
 
-    #print(request.json)
     data = request.get_json()
-    #print(data)
-
     hashed_password = generate_password_hash(data['password'], method='sha256')
 
     new_user = User(userId =str(uuid.uuid4()), password=hashed_password, cityOfResidence=data['cityOfResidence'],
@@ -170,7 +190,7 @@ def create_user(current_user):
 
     return jsonify({'message' : 'New user created!'})
 
-#delete user
+#Delete user
 @app.route('/user/<userId>', methods=['DELETE'])
 @token_required
 def delete_user(current_user, userId):
@@ -188,27 +208,7 @@ def delete_user(current_user, userId):
     return jsonify({'message' : 'The user has been deleted!'})
 
 
-@app.route('/login')
-def login():
-    auth = request.authorization
-
-    if not auth or not auth.username or not auth.password:
-        return make_response('Could not verify', 401, {'WWW-Authenticate' : 'Basic realm="Login required!"'})
-
-    user = User.query.filter_by(emailAddress=auth.username).first()
-
-    if not user:
-        return make_response('Could not verify', 401, {'WWW-Authenticate' : 'Basic realm="Login required!"'})
-
-    if check_password_hash(user.password, auth.password):
-        token = jwt.encode({'emailAddress' : user.emailAddress, 'exp' : datetime.datetime.utcnow() + datetime.timedelta(minutes=30)}, app.config['SECRET_KEY'])
-
-        return jsonify({'token' : token})
-
-    return make_response('Could not verify', 401, {'WWW-Authenticate' : 'Basic realm="Login required!"'})
-
-
-#create new startup
+#Create new startup
 
 @app.route('/startup', methods=['POST'])
 @token_required
@@ -216,9 +216,7 @@ def create_startup(current_user):
     if not current_user.admin:
         return jsonify({'message' : 'Cannot perform that function!'})
 
-    #print(request.json)
     data = request.get_json()
-    #print(data)
 
     new_startup = Startup(startupId = data['startupId'], userId=data['userId'], name=data['name'],
         photoUrl=data['photoUrl'], country=data['country'], city=data['city'],
