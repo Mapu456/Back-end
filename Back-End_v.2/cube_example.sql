@@ -109,9 +109,10 @@ LOCK TABLES `startup` WRITE;
 INSERT INTO `startup` VALUES
 ('start1','KB1', 'asisvisa','www.google.com', 'USA', 'New York', '123@cube.com', '12105661896', '3', '1', '01', '1'),
 ('start2','ED2', 'torre', 'www.google.com', 'USA', 'Silicon Valley', '456@cube.com', '12105661896', '2', '1','02', '1'),
- ('start3','TM3', 'voyyo', 'www.google.com', 'Colombia', 'Bogota', '456@cube.com', '12105661896', '3', '1','03', '1'),
- ('start4','AB4', 'check', 'www.google.com', 'Colombia', 'Bogota', '012@cube.com', '573111234890', '4', '3','04', '1'),
- ('start5','JD5', 'igo', 'www.google.com', 'Mexico', 'Mexico DF', '345@cube.com', '573111234890', '3', '1','05', '1');
+('start3','TM3', 'voyyo', 'www.google.com', 'Colombia', 'Bogota', '456@cube.com', '12105661896', '3', '1','03', '1'),
+('start4','AB4', 'check', 'www.google.com', 'Colombia', 'Bogota', '012@cube.com', '573111234890', '4', '3','04', '1'),
+('start5','JD5', 'igo', 'www.google.com', 'Mexico', 'Mexico DF', '345@cube.com', '573111234890', '3', '1','05', '1'),
+('start6','e76fb764-e02e-4054-aa41-fab816bf5189', 'tesla', 'www.google.com', 'USA', 'Silicon Valley', '902@cube.com', '573111234890', '3', '2','03', '1');
 UNLOCK TABLES;
 
 --
@@ -151,8 +152,11 @@ CREATE TABLE `userRole` (
 -- Dumping data for table `userRole`
 --
 LOCK TABLES `userRole` WRITE;
-INSERT INTO `userRole` VALUES ('SR1','1adm'), ('KB1','2ru'), ('ED2','2ru'), ('TM3','2ru'), ('AB4','2ru'), ('JD5','2ru');
+INSERT INTO `userRole` VALUES ('SR1','1adm'), ('KB1','2ru'), ('ED2','2ru'), ('TM3','2ru'), ('AB4','2ru'), ('JD5','2ru'),
+('82bbeca4-a6fc-480a-9950-2c6454b8d596','1adm'),
+('e76fb764-e02e-4054-aa41-fab816bf5189','2ru') ;
 UNLOCK TABLES;
+
 
 --
 -- Table structure for table `rolePermission`
