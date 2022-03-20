@@ -49,18 +49,18 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
-    `userId` VARCHAR(60) NOT NULL,
-    `firstname` VARCHAR(128) NOT NULL,
-    `lastname` VARCHAR(128) NOT NULL,
-    `cityOfResidence` VARCHAR(128) NOT NULL,
-    `countryOfResidence` VARCHAR(128) NOT NULL,
-    `photoUrl` VARCHAR(128) NOT NULL,
-    `phone` VARCHAR(128) NOT NULL,
-    `emailAddress` VARCHAR(128) NOT NULL,
-    `password` VARCHAR(128) NOT NULL,
-    `admin` BOOLEAN NOT NULL DEFAULT TRUE,
-    PRIMARY KEY (`userId`)
-)  ENGINE=INNODB DEFAULT CHARSET=LATIN1;
+  `userId` varchar(60) NOT NULL,
+  `firstname` varchar(128) NOT NULL,
+  `lastname` varchar(128) NOT NULL,
+  `cityOfResidence` varchar(128) NOT NULL,
+  `countryOfResidence` varchar(128) NOT NULL,
+  `photoUrl` varchar(128) NOT NULL,
+  `phone` varchar(128) NOT NULL,
+  `emailAddress` varchar(128) NOT NULL,
+  `password` varchar(128) NOT NULL,
+  `admin` BOOLEAN NOT NULL DEFAULT TRUE,
+  PRIMARY KEY (`userId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user`
@@ -72,7 +72,8 @@ INSERT INTO `user` VALUES
 ('ED2','Elon','Musk', 'Silicon Valley','USA', 'www.google.com', '12103134567899', '456@gmail.com', '432fwwe4', 0),
 ('TM3','Tom','Keen', 'Bogota', 'Colombia','www.google.com', '573111234500', '789@gmail.com', 'fwew323', 0),
 ('AB4','Ana','Buving', 'Bogota', 'Colombia', 'www.google.com', '573111233300', '012@gmail.com', '3423kdqdq', 0),
-('JD5','Jack','Dole', 'Mexico DF', 'Mexico', 'www.google.com', '573111234500', '456@gmail.com', '89712kdsa', 0)
+('JD5','Jack','Dole', 'Mexico DF', 'Mexico', 'www.google.com', '573111234500', '456@gmail.com', '89712kdsa', 0),
+('82bbeca4-a6fc-480a-9950-2c6454b8d596','complete','access', 'Bogota', 'Colombia','www.google.com', '573111236930', '111@gmail.com', 'sha256$tgphlrrnsDYJUWKo$c98266f95cc86a3fdd5a51fe075685a736be5a98600f88ae8efd148a075745b3', 1)
 ;
 UNLOCK TABLES;
 
