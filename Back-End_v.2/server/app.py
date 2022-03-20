@@ -12,6 +12,7 @@ from models.startup import Startup
 from models.permission import Permission
 from models.user import *
 from models.kpiRegister import KpiRegister
+from models.user_role import userRole
 from schemas.ma import ma
 from schemas.industrySchema import IndustrySchema
 from schemas.roleSchema import RoleSchema
@@ -52,19 +53,18 @@ def token_required(f):
 
         if 'x-access-token' in request.headers:
             token = request.headers['x-access-token']
-            #print(token)
 
         if not token:
             return jsonify({'message' : 'Token is missing!'}), 401
 
         try: 
             data = jwt.decode(token, app.config['SECRET_KEY'], algorithms=['HS256', ])
-            print(type(data))
-            print(data)
+            #print(type(data))
+            #print(data)
             current_user = User.query.filter_by(emailAddress=data['emailAddress']).first()
-            print(type(current_user))      
-            print(current_user)
-            print(current_user.emailAddress)   
+            #print(type(current_user))      
+            #print(current_user)
+            #print(current_user.emailAddress)   
         except:
             return jsonify({'message' : 'Token is invalid!'}), 401
 
@@ -124,7 +124,10 @@ def get_registers(current_user, val):
     #val_id = exec("%s" % ("table."+val+"Id"))
     results = table.query.all()
     val_results = val_schemas.dump(results)
-    print(val_results)
+
+    print(type(userRole))
+    testing = userRole
+    print(testing)
     return jsonify(val_results)
 
 
@@ -247,12 +250,6 @@ def kpi_register(current_user):
     db.session.commit()
 
     return jsonify({'message' : 'New kpi register created!'})
-
-
-
-
-
-
 
 
 if __name__ == "__main__":
