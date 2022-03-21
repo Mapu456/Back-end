@@ -108,14 +108,12 @@ def login():
 @app.route('/<val>', methods=['GET'])
 @token_required
 def get_registers(current_user, val):
-    if val == "startup":
-        if not current_user.admin:
+    if not current_user.admin:
             return jsonify({'message' : 'Cannot perform that function!'})
+    if val == "startup":
         table = Startup
         val_schemas = startup_schemas
     elif val == "user":
-        if not current_user.admin:
-            return jsonify({'message' : 'Cannot perform that function!'})
         table = User
         val_schemas = user_schemas
     elif val == "kpi":
