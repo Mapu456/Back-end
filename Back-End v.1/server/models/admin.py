@@ -13,7 +13,6 @@ class Admin(db.Model):
     city = db.Column(db.String(60))
     emailAddress = db.Column(db.String(60))
     phone = db.Column(db.String(60))
-    """ users = db.relationship('User', backref='admin_id', lazy=True) """
 
     def __init__(self, adminId, name, photoUrl, country, city, emailAddress,
                  phone):

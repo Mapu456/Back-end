@@ -19,8 +19,8 @@ class Startup(db.Model):
     founders = db.Column(db.Integer)
     industry = db.Column(db.String(60), db.ForeignKey('industry.industryId'))
     active = db.Column(db.Boolean)
-    users = db.relationship('User', backref='startup_id', lazy=True)
     registers = db.relationship('KpiRegister', backref='startup_id', lazy=True)
+    users = db.relationship('User', backref='startup_id', lazy=True)
 
     def __init__(self, startupId, name, photoUrl, country, city,
                  emailAddress, phone, founders, femaleFounders, industry,

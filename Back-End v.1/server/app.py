@@ -7,6 +7,9 @@ from queries.get_queries import get_entity, get_entity_by_id
 from queries.post_queries import post_register
 
 
+db.create_all()
+
+
 @app.route('/api/v1/<entity>')
 def get_results(entity):
     args = request.args
@@ -18,18 +21,9 @@ def get_results(entity):
 @app.route('/api/v1/<entity>', methods=['POST'])
 def insert_register(entity):
     data = request.get_json(force=True)
-
-    post_register(entity, data)
-    """ cat_nom = data['cat_nom']
-    cat_desp = data['cat_desp']
-
-    new_register = Category(cat_nom, cat_desp)
-
-    db.session.add(new_register)
-    db.session.commit()
-    return category_schema.jsonify(new_register) """
-    return data
+    result = post_register(entity, data)
+    
+    return result
 
 if __name__ == "__main__":
-    db.create_all()
     app.run(debug=True)
