@@ -190,6 +190,40 @@ def create_user(current_user):
 
     return jsonify({'message' : 'New user created!'})
 
+
+#Update user information
+
+@app.route('/user/<userId>', methods=['PUT'])
+@token_required
+def update_user(current_user, userId):
+    if not current_user.admin:
+        return jsonify({'message' : 'Cannot perform that function!'})
+
+    user = User.query.filter_by(userId=userId).first()
+    #print(user)
+
+    if not user:
+        return jsonify({'message' : 'No user found!'})
+
+    data = request.get_json()
+    #print(data)
+
+    user.password=data['password']
+    #print(data['password'])
+    user.cityOfResidence=data['cityOfResidence']
+    user.countryOfResidence=data['countryOfResidence']
+    user.emailAddress=data['emailAddress']
+    user.firstname=data['firstname']
+    user.lastname=data['lastname']
+    user.phone=data['phone']
+    user.photoUrl=data['photoUrl']
+    user.admin=data['admin']
+
+    #print(user)
+    db.session.commit()
+
+    return jsonify({'message' : 'The user has been updated!'})
+
 #Delete user
 @app.route('/user/<userId>', methods=['DELETE'])
 @token_required
@@ -227,6 +261,41 @@ def create_startup(current_user):
 
     return jsonify({'message' : 'New startup created!'})
 
+#Update startup information
+
+@app.route('/startup/<startupId>', methods=['PUT'])
+@token_required
+def update_startup(current_user, startupId):
+    if not current_user.admin:
+        return jsonify({'message' : 'Cannot perform that function!'})
+
+    startup = Startup.query.filter_by(startupId=startupId).first()
+    #print(user)
+
+    if not startup:
+        return jsonify({'message' : 'No startup found!'})
+
+    data = request.get_json()
+    #print(data)
+
+    startup.userId=data['userId']
+    #print(data['userId'])
+    startup.name=data['name']
+    startup.photoUrl=data['photoUrl']
+    startup.country=data['country']
+    startup.city=data['city']
+    startup.emailAddress=data['emailAddress']
+    startup.phone=data['phone']
+    startup.founders=data['founders']
+    startup.femaleFounders=data['femaleFounders']
+    startup.industry=data['industry']
+    startup.active=data['active']
+    #print(startup)
+    db.session.commit()
+
+    return jsonify({'message' : 'The startup has been updated!'})
+
+
 #Delete startup
 @app.route('/startup/<startupId>', methods=['DELETE'])
 @token_required
@@ -262,6 +331,45 @@ def kpi_register(current_user):
     db.session.commit()
 
     return jsonify({'message' : 'New kpi register created!'})
+
+
+#Update kpi register
+
+@app.route('/kpi/<kpiId>', methods=['PUT'])
+@token_required
+def update__kpi_register(current_user, kpiId):
+    if not current_user.admin:
+        return jsonify({'message' : 'Cannot perform that function!'})
+
+    startup = Startup.query.filter_by(startupId=startupId).first()
+    #print(user)
+
+    if not startup:
+        return jsonify({'message' : 'No startup found!'})
+
+    data = request.get_json()
+    #print(data)
+
+    startup.userId=data['userId']
+    #print(data['userId'])
+    startup.name=data['name']
+    startup.photoUrl=data['photoUrl']
+    startup.country=data['country']
+    startup.city=data['city']
+    startup.emailAddress=data['emailAddress']
+    startup.phone=data['phone']
+    startup.founders=data['founders']
+    startup.femaleFounders=data['femaleFounders']
+    startup.industry=data['industry']
+    startup.active=data['active']
+    #print(startup)
+    db.session.commit()
+
+    return jsonify({'message' : 'The startup has been updated!'})
+
+
+
+
 
 #Delete kpi register
 @app.route('/kpi/<kpiId>', methods=['DELETE'])
