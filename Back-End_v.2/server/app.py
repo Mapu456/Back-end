@@ -109,9 +109,13 @@ def login():
 @token_required
 def get_registers(current_user, val):
     if val == "startup":
+        if not current_user.admin:
+            return jsonify({'message' : 'Cannot perform that function!'})
         table = Startup
         val_schemas = startup_schemas
     elif val == "user":
+        if not current_user.admin:
+            return jsonify({'message' : 'Cannot perform that function!'})
         table = User
         val_schemas = user_schemas
     elif val == "kpi":
@@ -130,10 +134,14 @@ def get_registers(current_user, val):
 @token_required
 def get_register_by_id(current_user, val, id):
     if val == "startup":
+        if not current_user.admin:
+            return jsonify({'message' : 'Cannot perform that function!'})
         table = Startup
         val_schema = startup_schema
         val_id = table.startupId
     elif val == "user":
+        if not current_user.admin:
+            return jsonify({'message' : 'Cannot perform that function!'})
         table = User
         val_schema = user_schema
         val_id = table.userId
@@ -150,7 +158,7 @@ def get_register_by_id(current_user, val, id):
 
 # Get startup info from user id. 
 
-@app.route('/user_pyme/<id>', methods=['GET'])
+@app.route('/user_startup/<id>', methods=['GET'])
 @token_required
 def get_user_pyme(current_user, id):
     if not current_user.admin:
@@ -331,7 +339,7 @@ def kpi_register(current_user):
 @app.route('/kpi/<kpiId>', methods=['PUT'])
 @token_required
 def update__kpi_register(current_user, kpiId):
-    
+
     kpiregister = KpiRegister.query.filter_by(kpiId=kpiId).first()
     #print(kpiregister)
 
@@ -369,9 +377,6 @@ def delete_kpi_register(current_user, kpiId):
     db.session.commit()
 
     return jsonify({'message' : 'The kpi record has been deleted!'})
-
-
-
 
 if __name__ == "__main__":
     app.run(debug=True)
