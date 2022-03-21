@@ -206,10 +206,7 @@ def update_user(current_user, userId):
         return jsonify({'message' : 'No user found!'})
 
     data = request.get_json()
-    #print(data)
-
     user.password=data['password']
-    #print(data['password'])
     user.cityOfResidence=data['cityOfResidence']
     user.countryOfResidence=data['countryOfResidence']
     user.emailAddress=data['emailAddress']
@@ -218,7 +215,6 @@ def update_user(current_user, userId):
     user.phone=data['phone']
     user.photoUrl=data['photoUrl']
     user.admin=data['admin']
-
     #print(user)
     db.session.commit()
 
@@ -270,16 +266,13 @@ def update_startup(current_user, startupId):
         return jsonify({'message' : 'Cannot perform that function!'})
 
     startup = Startup.query.filter_by(startupId=startupId).first()
-    #print(user)
+    #print(startup)
 
     if not startup:
         return jsonify({'message' : 'No startup found!'})
 
     data = request.get_json()
-    #print(data)
-
     startup.userId=data['userId']
-    #print(data['userId'])
     startup.name=data['name']
     startup.photoUrl=data['photoUrl']
     startup.country=data['country']
@@ -341,35 +334,28 @@ def update__kpi_register(current_user, kpiId):
     if not current_user.admin:
         return jsonify({'message' : 'Cannot perform that function!'})
 
-    startup = Startup.query.filter_by(startupId=startupId).first()
-    #print(user)
+    kpiregister = KpiRegister.query.filter_by(kpiId=kpiId).first()
+    #print(kpiregister)
 
-    if not startup:
-        return jsonify({'message' : 'No startup found!'})
+    if not kpiregister:
+        return jsonify({'message' : 'No kpi register found!'})
 
     data = request.get_json()
     #print(data)
-
-    startup.userId=data['userId']
-    #print(data['userId'])
-    startup.name=data['name']
-    startup.photoUrl=data['photoUrl']
-    startup.country=data['country']
-    startup.city=data['city']
-    startup.emailAddress=data['emailAddress']
-    startup.phone=data['phone']
-    startup.founders=data['founders']
-    startup.femaleFounders=data['femaleFounders']
-    startup.industry=data['industry']
-    startup.active=data['active']
-    #print(startup)
+    kpiregister.date=data['date']
+    kpiregister.startupId=data['startupId']
+    kpiregister.revenue=data['revenue']
+    kpiregister.ARR=data['ARR']
+    kpiregister.EBITDA=data['EBITDA']
+    kpiregister.GMV=data['GMV']
+    kpiregister.numberEmployees=data['numberEmployees']
+    kpiregister.fundRaising=data['fundRaising']
+    kpiregister.CAC=data['CAC']
+    kpiregister.activeClients=data['activeClients']
+    #print(kpiregister)
     db.session.commit()
 
-    return jsonify({'message' : 'The startup has been updated!'})
-
-
-
-
+    return jsonify({'message' : 'The kpi register has been updated!'})
 
 #Delete kpi register
 @app.route('/kpi/<kpiId>', methods=['DELETE'])
