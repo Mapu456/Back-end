@@ -331,9 +331,7 @@ def kpi_register(current_user):
 @app.route('/kpi/<kpiId>', methods=['PUT'])
 @token_required
 def update__kpi_register(current_user, kpiId):
-    if not current_user.admin:
-        return jsonify({'message' : 'Cannot perform that function!'})
-
+    
     kpiregister = KpiRegister.query.filter_by(kpiId=kpiId).first()
     #print(kpiregister)
 
