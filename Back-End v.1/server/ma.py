@@ -1,4 +1,4 @@
 from flask_marshmallow import Marshmallow
-from models.db import app
+from db import app
 
 ma = Marshmallow(app)

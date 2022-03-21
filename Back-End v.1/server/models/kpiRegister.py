@@ -1,5 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
-from models.db import db
+from db import db
+
 
 # table kpiRegister
 class KpiRegister(db.Model):

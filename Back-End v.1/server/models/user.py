@@ -1,5 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
-from models.db import db
+from db import db
 
 
 # table user
@@ -23,15 +23,15 @@ class User(db.Model):
     def __init__(self, userId, firstname, lastname, cityOfResidence,
                  countryOfResidence, photoUrl, phone, emailAddress, right,
                  userBasicId, accessUser, password):
-        userId = userId
-        firstname = firstname
-        lastname = lastname
-        cityOfResidence = cityOfResidence
-        countryOfResidence = countryOfResidence
-        photoUrl = photoUrl
-        phone = phone
-        emailAddress = emailAddress
-        right = right
-        userBasicId = userBasicId
-        accessUser = accessUser
-        password = password
+        self.userId = userId
+        self.firstname = firstname
+        self.lastname = lastname
+        self.cityOfResidence = cityOfResidence
+        self.countryOfResidence = countryOfResidence
+        self.photoUrl = photoUrl
+        self.phone = phone
+        self.emailAddress = emailAddress
+        self.right = right
+        self.userBasicId = userBasicId
+        self.accessUser = accessUser
+        self.password = password
