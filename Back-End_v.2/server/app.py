@@ -105,7 +105,7 @@ def login():
 
 # Get all users, startups and KPIs. 
 
-@app.route('/<val>', methods=['GET'])
+@app.route('/api/v1/<val>', methods=['GET'])
 @token_required
 def get_registers(current_user, val):
     if not current_user.admin:
@@ -128,7 +128,7 @@ def get_registers(current_user, val):
 
 # Get specific user, startup or KPI using id. 
 
-@app.route('/<val>/<id>', methods=['GET'])
+@app.route('/api/v1/<val>/<id>', methods=['GET'])
 @token_required
 def get_register_by_id(current_user, val, id):
     if val == "startup":
@@ -156,7 +156,7 @@ def get_register_by_id(current_user, val, id):
 
 # Get startup info from user id. 
 
-@app.route('/user_startup/<id>', methods=['GET'])
+@app.route('/api/v1/user_startup/<id>', methods=['GET'])
 @token_required
 def get_user_pyme(current_user, id):
     if not current_user.admin:
@@ -179,7 +179,7 @@ def get_user_pyme(current_user, id):
 
 #Create new user
 
-@app.route('/user', methods=['POST'])
+@app.route('/api/v1/user', methods=['POST'])
 @token_required
 def create_user(current_user):
     if not current_user.admin:
@@ -199,7 +199,7 @@ def create_user(current_user):
 
 #Update user information
 
-@app.route('/user/<userId>', methods=['PUT'])
+@app.route('/api/v1/user/<userId>', methods=['PUT'])
 @token_required
 def update_user(current_user, userId):
     if not current_user.admin:
@@ -227,7 +227,7 @@ def update_user(current_user, userId):
     return jsonify({'message' : 'The user has been updated!'})
 
 #Delete user
-@app.route('/user/<userId>', methods=['DELETE'])
+@app.route('/api/v1/user/<userId>', methods=['DELETE'])
 @token_required
 def delete_user(current_user, userId):
     if not current_user.admin:
@@ -246,12 +246,10 @@ def delete_user(current_user, userId):
 
 #Create new startup
 
-@app.route('/startup', methods=['POST'])
-@token_required
-def create_startup(current_user):
-    if not current_user.admin:
-        return jsonify({'message' : 'Cannot perform that function!'})
+@app.route('/api/v1/startup', methods=['POST'])
 
+def create_startup():
+  
     data = request.get_json()
 
     new_startup = Startup(startupId = data['startupId'], userId=data['userId'], name=data['name'],
@@ -265,7 +263,7 @@ def create_startup(current_user):
 
 #Update startup information
 
-@app.route('/startup/<startupId>', methods=['PUT'])
+@app.route('/api/v1/startup/<startupId>', methods=['PUT'])
 @token_required
 def update_startup(current_user, startupId):
     if not current_user.admin:
@@ -296,7 +294,7 @@ def update_startup(current_user, startupId):
 
 
 #Delete startup
-@app.route('/startup/<startupId>', methods=['DELETE'])
+@app.route('/api/v1/startup/<startupId>', methods=['DELETE'])
 @token_required
 def delete_startup(current_user, startupId):
     if not current_user.admin:
@@ -316,7 +314,7 @@ def delete_startup(current_user, startupId):
 
 #create new kpi register
 
-@app.route('/kpi', methods=['POST'])
+@app.route('/api/v1/kpi', methods=['POST'])
 @token_required
 def kpi_register(current_user):
 
@@ -334,7 +332,7 @@ def kpi_register(current_user):
 
 #Update kpi register
 
-@app.route('/kpi/<kpiId>', methods=['PUT'])
+@app.route('/api/v1/kpi/<kpiId>', methods=['PUT'])
 @token_required
 def update__kpi_register(current_user, kpiId):
 
@@ -362,7 +360,7 @@ def update__kpi_register(current_user, kpiId):
     return jsonify({'message' : 'The kpi register has been updated!'})
 
 #Delete kpi register
-@app.route('/kpi/<kpiId>', methods=['DELETE'])
+@app.route('/api/v1/kpi/<kpiId>', methods=['DELETE'])
 @token_required
 def delete_kpi_register(current_user, kpiId):
     

@@ -8,5 +8,3 @@ class UserSchema(ma.Schema):
         fields = ("userId", "firstname", "lastname", "cityOfResidence",
                   "countryOfResidence", "photoUrl", "phone", "emailAddress",
                   "right", "userBasicId", "accessUser", "password")
-
-    pyme = ma.Nested(StartupSchema)

@@ -5,6 +5,6 @@ def get_connection():
     """ return ("mysql+pymysql://" + os.environ.get('CUBE_HOST') +
             ":" + os.environ.get('CUBE_PWD') +
             os.environ.get('CUBE_PATH')+":" + os.environ.get('CUBE_PORT') +
-            "/" + os.environ.get('CUBE_DATABASE'))
- """
+            "/" + os.environ.get('CUBE_DATABASE')) """
+
     return ('mysql+pymysql://root:@localhost:3306/cubeTestDb')

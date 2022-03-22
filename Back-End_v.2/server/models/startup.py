@@ -3,6 +3,7 @@ from models.db import db
 from models.user import User
 from models.kpiRegister import *
 
+
 # table startup
 class Startup(db.Model):
     __tablename__ = 'startup'
