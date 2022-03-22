@@ -9,11 +9,6 @@ from schemas.userSchema import UserSchema
 from schemas.kpiRegisterSchema import KpiRegisterSchema
 
 
-startup_schemas = StartupSchema(many=True)
-user_schemas = UserSchema(many=True)
-kpi_register_schemas = KpiRegisterSchema(many=True)
-
-
 def get_entity(entity):
     table, entity_schemas = get_registers(entity)
 
@@ -38,19 +33,16 @@ def get_entity_by_id(entity, args):
     except NoResultFound as e:
         return {f"message": f"{entity} {e}."}, 400
 
-    """ if len(args) > 1:
-        result = entity_schema.dump(tmp_result)
-        user_result = Startup.query.get(result["userBasicId"]) """
     return jsonify(entity_schema.dump(tmp_result))
 
 
 def get_registers(entity):
     if entity == os.environ.get('CUBE_ST'):
-        return Startup, startup_schemas
+        return Startup, StartupSchema(many=True)
     elif entity == os.environ.get('CUBE_USR'):
-        return User, user_schemas
+        return User, UserSchema(many=True)
     elif (entity == os.environ.get('CUBE_KPI')) or (entity == os.environ.get('CUBE_REG')):
-        return KpiRegister, kpi_register_schemas
+        return KpiRegister, KpiRegisterSchema(many=True)
 
 
 def get_column(entity, table, first_column):
