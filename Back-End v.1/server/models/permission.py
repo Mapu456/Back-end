@@ -9,8 +9,7 @@ class Permission(db.Model):
 
     permissionId = db.Column(db.String(60), primary_key=True)
     permissionRight = db.Column(db.String(128))
-    users = db.relationship('User', backref='permission_id',
-                            lazy=True)
+    users = db.relationship('User', backref='permission_id',lazy=True)
 
     def __init__(self, permissionId, permissionRight):
         self.permissionId = permissionId

@@ -1,0 +1,464 @@
+{
+	"info": {
+		"_postman_id": "8713408d-ae9c-4f4c-b32a-e4a8ca6e9cf9",
+		"name": "CUBE",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "PymeController",
+			"item": [
+				{
+					"name": "Create PYME",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-user-id",
+								"value": "17de05d6-ec71-41a1-a94c-1772fa1b200c",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"startupId\" : \"start7\",\r\n\t\"name\" : \"CUBE VENTURES S.A.S\"\t,\r\n\t\"photoUrl\" : \"www.google.com\",\r\n\t\"country\" : \"USA\",\r\n\t\"city\" : \"San Francisco\",\r\n\t\"emailAddress\" : \"123@hbtn.com\",\r\n\t\"phone\" : \"165468485\",\r\n\t\"founders\" : \"2\",\r\n\t\"femaleFounders\" : \"2\",\r\n\t\"industry\" : \"04\",\r\n\t\"active\" : true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/v1/startup",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"startup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get PYME",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "username",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "password",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://dominio:8080/api/v1/pyme?userId=17de05d6-ec71-41a1-a94c-1772fa1b200c&pymeId=17de05d6-ec71-41a1-a94c-1772fa1b200c",
+							"protocol": "http",
+							"host": [
+								"dominio"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"pyme"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "17de05d6-ec71-41a1-a94c-1772fa1b200c"
+								},
+								{
+									"key": "pymeId",
+									"value": "17de05d6-ec71-41a1-a94c-1772fa1b200c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update PYME",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "username",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "password",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pymeId\":\"3245345345\",\r\n    \"active\": false,\r\n    \"name\": \"CUBE VENTURES S.A.S\",\r\n    \"city\":\"Bogota\",\r\n    \"country\":\"Colombia\",\r\n    \"address\":\"Cll 30 # 68 16\",\r\n    \"emailAddress\": \"cube@example.com\",\r\n    \"photoUrl\": \"https://res.cloudinary.com/db072vt8g/image/upload/v1647037755/r3llozmgmz9vqla7jpmk.png\",\r\n    \"phone\":\"3743287542\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://dominio:8080/api/v1/pyme?userId=17de05d6-ec71-41a1-a94c-1772fa1b200c&pymeId=17de05d6-ec71-41a1-a94c-1772fa1b200c",
+							"protocol": "http",
+							"host": [
+								"dominio"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"pyme"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "17de05d6-ec71-41a1-a94c-1772fa1b200c"
+								},
+								{
+									"key": "pymeId",
+									"value": "17de05d6-ec71-41a1-a94c-1772fa1b200c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All PYMES",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "username",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "password",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"pymeId\": \"3453465465-N1\",\n        \"active\": true,\n        \"name\": \"Cube Ventures S.A.S\",\n        \"city\": \"Bogota\",\n        \"country\": \"Colombia\",\n        \"address\": \"Cll 26 # 68 - 35\",\n        \"emailAddress\": \"company@example.com\",\n        \"photoUrl\": \"../../../assets/images/cube_logo.jpg\",\n        \"phone\": \"123456789\"\n    },\n    {\n        \"pymeId\": \"56575452\",\n        \"active\": true,\n        \"name\": \"Circle Ventures S.A.S\",\n        \"city\": \"Bogota\",\n        \"country\": \"Colombia\",\n        \"address\": \"Cll 26 # 68 - 35\",\n        \"emailAddress\": \"company@example.com\",\n        \"photoUrl\": \"../../../assets/images/cube_logo.jpg\",\n        \"phone\": \"123456789\"\n    },\n    {\n        \"pymeId\": \"43535654653\",\n        \"active\": true,\n        \"name\": \"Trinagle Ventures S.A.S\",\n        \"city\": \"Bogota\",\n        \"country\": \"Colombia\",\n        \"address\": \"Cll 26 # 68 - 35\",\n        \"emailAddress\": \"company@example.com\",\n        \"photoUrl\": \"../../../assets/images/cube_logo.jpg\",\n        \"phone\": \"123456789\"\n    },\n    {\n        \"pymeId\": \"3453465465-N4\",\n        \"active\": true,\n        \"name\": \"Cube Ventures S.A.S\",\n        \"city\": \"Bogota\",\n        \"country\": \"Colombia\",\n        \"address\": \"Cll 26 # 68 - 35\",\n        \"emailAddress\": \"company@example.com\",\n        \"photoUrl\": \"../../../assets/images/cube_logo.jpg\",\n        \"phone\": \"123456789\"\n    },\n    {\n        \"pymeId\": \"56575455\",\n        \"active\": true,\n        \"name\": \"Circle Ventures S.A.S\",\n        \"city\": \"Bogota\",\n        \"country\": \"Colombia\",\n        \"address\": \"Cll 26 # 68 - 35\",\n        \"emailAddress\": \"company@example.com\",\n        \"photoUrl\": \"../../../assets/images/cube_logo.jpg\",\n        \"phone\": \"123456789\"\n    },\n    {\n        \"pymeId\": \"43535654656\",\n        \"active\": true,\n        \"name\": \"Trinagle Ventures S.A.S\",\n        \"city\": \"Bogota\",\n        \"country\": \"Colombia\",\n        \"address\": \"Cll 26 # 68 - 35\",\n        \"emailAddress\": \"company@example.com\",\n        \"photoUrl\": \"../../../assets/images/cube_logo.jpg\",\n        \"phone\": \"123456789\"\n    },\n    {\n        \"pymeId\": \"3453465465-N7\",\n        \"active\": true,\n        \"name\": \"Cube Ventures S.A.S\",\n        \"city\": \"Bogota\",\n        \"country\": \"Colombia\",\n        \"address\": \"Cll 26 # 68 - 35\",\n        \"emailAddress\": \"company@example.com\",\n        \"photoUrl\": \"../../../assets/images/cube_logo.jpg\",\n        \"phone\": \"123456789\"\n    },\n    {\n        \"pymeId\": \"56575458\",\n        \"active\": true,\n        \"name\": \"Circle Ventures S.A.S\",\n        \"city\": \"Bogota\",\n        \"country\": \"Colombia\",\n        \"address\": \"Cll 26 # 68 - 35\",\n        \"emailAddress\": \"company@example.com\",\n        \"photoUrl\": \"../../../assets/images/cube_logo.jpg\",\n        \"phone\": \"123456789\"\n    },\n    {\n        \"pymeId\": \"43535654659\",\n        \"active\": true,\n        \"name\": \"Trinagle Ventures S.A.S\",\n        \"city\": \"Bogota\",\n        \"country\": \"Colombia\",\n        \"address\": \"Cll 26 # 68 - 35\",\n        \"emailAddress\": \"company@example.com\",\n        \"photoUrl\": \"../../../assets/images/cube_logo.jpg\",\n        \"phone\": \"123456789\"\n    },\n    {\n        \"pymeId\": \"3453465465-N10\",\n        \"active\": true,\n        \"name\": \"Cube Ventures S.A.S\",\n        \"city\": \"Bogota\",\n        \"country\": \"Colombia\",\n        \"address\": \"Cll 26 # 68 - 35\",\n        \"emailAddress\": \"company@example.com\",\n        \"photoUrl\": \"../../../assets/images/cube_logo.jpg\",\n        \"phone\": \"123456789\"\n    },\n    {\n        \"pymeId\": \"565754511\",\n        \"active\": true,\n        \"name\": \"Circle Ventures S.A.S\",\n        \"city\": \"Bogota\",\n        \"country\": \"Colombia\",\n        \"address\": \"Cll 26 # 68 - 35\",\n        \"emailAddress\": \"company@example.com\",\n        \"photoUrl\": \"../../../assets/images/cube_logo.jpg\",\n        \"phone\": \"123456789\"\n    },\n    {\n        \"pymeId\": \"435356546512\",\n        \"active\": true,\n        \"name\": \"Trinagle Ventures S.A.S\",\n        \"city\": \"Bogota\",\n        \"country\": \"Colombia\",\n        \"address\": \"Cll 26 # 68 - 35\",\n        \"emailAddress\": \"company@example.com\",\n        \"photoUrl\": \"../../../assets/images/cube_logo.jpg\",\n        \"phone\": \"123456789\"\n    },\n    {\n        \"pymeId\": \"3453465465-N13\",\n        \"active\": true,\n        \"name\": \"Cube Ventures S.A.S\",\n        \"city\": \"Bogota\",\n        \"country\": \"Colombia\",\n        \"address\": \"Cll 26 # 68 - 35\",\n        \"emailAddress\": \"company@example.com\",\n        \"photoUrl\": \"../../../assets/images/cube_logo.jpg\",\n        \"phone\": \"123456789\"\n    },\n    {\n        \"pymeId\": \"565754514\",\n        \"active\": true,\n        \"name\": \"Circle Ventures S.A.S\",\n        \"city\": \"Bogota\",\n        \"country\": \"Colombia\",\n        \"address\": \"Cll 26 # 68 - 35\",\n        \"emailAddress\": \"company@example.com\",\n        \"photoUrl\": \"../../../assets/images/cube_logo.jpg\",\n        \"phone\": \"123456789\"\n    },\n    {\n        \"pymeId\": \"435356546515\",\n        \"active\": true,\n        \"name\": \"Trinagle Ventures S.A.S\",\n        \"city\": \"Bogota\",\n        \"country\": \"Colombia\",\n        \"address\": \"Cll 26 # 68 - 35\",\n        \"emailAddress\": \"company@example.com\",\n        \"photoUrl\": \"../../../assets/images/cube_logo.jpg\",\n        \"phone\": \"123456789\"\n    },\n    {\n        \"pymeId\": \"3453465465-N16\",\n        \"active\": true,\n        \"name\": \"Cube Ventures S.A.S\",\n        \"city\": \"Bogota\",\n        \"country\": \"Colombia\",\n        \"address\": \"Cll 26 # 68 - 35\",\n        \"emailAddress\": \"company@example.com\",\n        \"photoUrl\": \"../../../assets/images/cube_logo.jpg\",\n        \"phone\": \"123456789\"\n    },\n    {\n        \"pymeId\": \"565754517\",\n        \"active\": true,\n        \"name\": \"Circle Ventures S.A.S\",\n        \"city\": \"Bogota\",\n        \"country\": \"Colombia\",\n        \"address\": \"Cll 26 # 68 - 35\",\n        \"emailAddress\": \"company@example.com\",\n        \"photoUrl\": \"../../../assets/images/cube_logo.jpg\",\n        \"phone\": \"123456789\"\n    },\n    {\n        \"pymeId\": \"435356546518\",\n        \"active\": true,\n        \"name\": \"Trinagle Ventures S.A.S\",\n        \"city\": \"Bogota\",\n        \"country\": \"Colombia\",\n        \"address\": \"Cll 26 # 68 - 35\",\n        \"emailAddress\": \"company@example.com\",\n        \"photoUrl\": \"../../../assets/images/cube_logo.jpg\",\n        \"phone\": \"123456789\"\n    },\n    {\n        \"pymeId\": \"3453465465-N19\",\n        \"active\": true,\n        \"name\": \"Cube Ventures S.A.S\",\n        \"city\": \"Bogota\",\n        \"country\": \"Colombia\",\n        \"address\": \"Cll 26 # 68 - 35\",\n        \"emailAddress\": \"company@example.com\",\n        \"photoUrl\": \"../../../assets/images/cube_logo.jpg\",\n        \"phone\": \"123456789\"\n    },\n    {\n        \"pymeId\": \"565754520\",\n        \"active\": true,\n        \"name\": \"Circle Ventures S.A.S\",\n        \"city\": \"Bogota\",\n        \"country\": \"Colombia\",\n        \"address\": \"Cll 26 # 68 - 35\",\n        \"emailAddress\": \"company@example.com\",\n        \"photoUrl\": \"../../../assets/images/cube_logo.jpg\",\n        \"phone\": \"123456789\"\n    },\n    {\n        \"pymeId\": \"435356546521\",\n        \"active\": true,\n        \"name\": \"Trinagle Ventures S.A.S\",\n        \"city\": \"Bogota\",\n        \"country\": \"Colombia\",\n        \"address\": \"Cll 26 # 68 - 35\",\n        \"emailAddress\": \"company@example.com\",\n        \"photoUrl\": \"../../../assets/images/cube_logo.jpg\",\n        \"phone\": \"123456789\"\n    },\n    {\n        \"pymeId\": \"3453465465-N22\",\n        \"active\": true,\n        \"name\": \"Cube Ventures S.A.S\",\n        \"city\": \"Bogota\",\n        \"country\": \"Colombia\",\n        \"address\": \"Cll 26 # 68 - 35\",\n        \"emailAddress\": \"company@example.com\",\n        \"photoUrl\": \"../../../assets/images/cube_logo.jpg\",\n        \"phone\": \"123456789\"\n    },\n    {\n        \"pymeId\": \"565754523\",\n        \"active\": true,\n        \"name\": \"Circle Ventures S.A.S\",\n        \"city\": \"Bogota\",\n        \"country\": \"Colombia\",\n        \"address\": \"Cll 26 # 68 - 35\",\n        \"emailAddress\": \"company@example.com\",\n        \"photoUrl\": \"../../../assets/images/cube_logo.jpg\",\n        \"phone\": \"123456789\"\n    },\n    {\n        \"pymeId\": \"435356546524\",\n        \"active\": true,\n        \"name\": \"Trinagle Ventures S.A.S\",\n        \"city\": \"Bogota\",\n        \"country\": \"Colombia\",\n        \"address\": \"Cll 26 # 68 - 35\",\n        \"emailAddress\": \"company@example.com\",\n        \"photoUrl\": \"../../../assets/images/cube_logo.jpg\",\n        \"phone\": \"123456789\"\n    },\n    {\n        \"pymeId\": \"3453465465-N25\",\n        \"active\": true,\n        \"name\": \"Cube Ventures S.A.S\",\n        \"city\": \"Bogota\",\n        \"country\": \"Colombia\",\n        \"address\": \"Cll 26 # 68 - 35\",\n        \"emailAddress\": \"company@example.com\",\n        \"photoUrl\": \"../../../assets/images/cube_logo.jpg\",\n        \"phone\": \"123456789\"\n    },\n    {\n        \"pymeId\": \"565754526\",\n        \"active\": true,\n        \"name\": \"Circle Ventures S.A.S\",\n        \"city\": \"Bogota\",\n        \"country\": \"Colombia\",\n        \"address\": \"Cll 26 # 68 - 35\",\n        \"emailAddress\": \"company@example.com\",\n        \"photoUrl\": \"../../../assets/images/cube_logo.jpg\",\n        \"phone\": \"123456789\"\n    },\n    {\n        \"pymeId\": \"435356546527\",\n        \"active\": true,\n        \"name\": \"Trinagle Ventures S.A.S\",\n        \"city\": \"Bogota\",\n        \"country\": \"Colombia\",\n        \"address\": \"Cll 26 # 68 - 35\",\n        \"emailAddress\": \"company@example.com\",\n        \"photoUrl\": \"../../../assets/images/cube_logo.jpg\",\n        \"phone\": \"123456789\"\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://dominio:8080/api/v1/pyme?userId=17de05d6-ec71-41a1-a94c-1772fa1b200c",
+							"protocol": "http",
+							"host": [
+								"dominio"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"pyme"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "17de05d6-ec71-41a1-a94c-1772fa1b200c"
+								},
+								{
+									"key": "pymeId",
+									"value": "17de05d6-ec71-41a1-a94c-1772fa1b200c",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "KpiController",
+			"item": [
+				{
+					"name": "Cretate or Update KPI",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-pyme-id",
+								"value": "17de05d6-ec71-41a1-a94c-1772fa1b200c",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"kpiId\": \"7382cce6-9c47-4d92-b8a9-8322b292c697\",\r\n        \"date\": \"2022-03-21\",\r\n        \"startupId\": \"start1\",\r\n        \"revenue\": 600000,\r\n        \"ARR\": 30000,\r\n        \"EBITDA\": 9000,\r\n        \"GMV\": 6000,\r\n        \"numberEmployees\": 25,\r\n        \"fundRaising\": 50000,\r\n        \"CAC\": 0,\r\n        \"activeClients\": 100\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/v1/kpi",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"kpi"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Pyme KPIs",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "password",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "username",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-pyme-id",
+								"value": "17de05d6-ec71-41a1-a94c-1772fa1b200c",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://dominio:8080/api/v1/kpi",
+							"protocol": "http",
+							"host": [
+								"dominio"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"kpi"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "UserController",
+			"item": [
+				{
+					"name": "Create New User",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "  {\r\n    \"userId\": \"30a97c3f-81ec-41bd-822e-a43eb63f60d6\",\r\n    \"firstname\": \"Maria Paula\",\r\n    \"lastname\": \"Medina\",\r\n    \"cityOfResidence\": \"Bogota\",\r\n    \"countryOfResicence\": \"Colombia\",\r\n    \"photoUrl\": \"../../../assets/images/cube_logo.jpg\",\r\n    \"phone\": \"123456789\",\r\n    \"emailAddress\": \"mpaula456@hotmail.com\",\r\n    \"right\": \"0C3\",\r\n    \"userBasicId\": \"start2\",\r\n    \"accessUser\": \"Hbtn123\",\r\n    \"password\": \"daf2b76e\"\r\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/v1/user",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "username",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "password",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "X-user-id",
+								"value": "e2e2c71e-3755-4254-addb-ed8475cef174",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": \"30a97c3f-81ec-41bd-822e-a43eb63f60d6\",\n    \"firstname\": \"Mapu\",\n    \"lastname\": \"Medina\",\n    \"cityOfResidence\": \"Bogotalandia\",\n    \"countryOfResicence\": \"Colombiana\",\n    \"photoUrl\": \"../../../assets/images/cube_logo.jpg\",\n    \"phone\": \"123456789\",\n    \"emailAddress\": \"mpaula456@hotmail.com\",\n    \"right\": \"0C3\",\n    \"userBasicId\": \"start2\",\n    \"accessUser\": \"Hbtn123\",\n    \"password\": \"daf2b76e\"\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/v1/user?userId=30a97c3f-81ec-41bd-822e-a43eb63f60d6",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"user"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "30a97c3f-81ec-41bd-822e-a43eb63f60d6"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "username",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "password",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-email-address",
+								"value": "example@example.com",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://dominio:8080/api/v1/user",
+							"protocol": "http",
+							"host": [
+								"dominio"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"user"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "LoginController",
+			"item": [
+				{
+					"name": "Auth Request",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
