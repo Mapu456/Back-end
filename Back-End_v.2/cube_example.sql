@@ -67,14 +67,11 @@ CREATE TABLE `user` (
 --
 LOCK TABLES `user` WRITE;
 INSERT INTO `user` VALUES
-('SR1','Santiago','Rojas', 'Bogota', 'Colombia','www.google.com', '573111236930', 'sr@cube.ventures', 'dasdasd', 1),
-('KB1','Ken','Buving', 'New York', 'USA', 'www.google.com', '12103134567890', '123@gmail.com', '78923123', 0),
-('ED2','Elon','Musk', 'Silicon Valley','USA', 'www.google.com', '12103134567899', '456@gmail.com', '432fwwe4', 0),
-('TM3','Tom','Keen', 'Bogota', 'Colombia','www.google.com', '573111234500', '789@gmail.com', 'fwew323', 0),
-('AB4','Ana','Buving', 'Bogota', 'Colombia', 'www.google.com', '573111233300', '012@gmail.com', '3423kdqdq', 0),
-('JD5','Jack','Dole', 'Mexico DF', 'Mexico', 'www.google.com', '573111234500', '456@gmail.com', '89712kdsa', 0),
+('1c58aa79-cffa-470d-9022-2b0c1ab38d4f','Santiago','Rojas', 'Bogota', 'Colombia','www.google.com', '573111236930', 'sr@cube.ventures', 'sha256$7wHPKBuBjR7cvLL5$45ffc9de6248df9c436fc646c928f2921c39a1500c623ef2de04d88c2b05af0b', 1),
+('805f8e9d-1e44-4c84-b3a9-6a86d34f444a','Ana','Buving', 'San Antonio', 'USA', 'www.google.com', '573111233300', '120@gmail.com', 'sha256$pRzF5bkZFUX2StJf$6e9d1a0cbbc176c4b8eb4fdca1392419186e82eaaae8d8774608896a40292bcf', 0),
 ('82bbeca4-a6fc-480a-9950-2c6454b8d596','complete','access', 'Bogota', 'Colombia','www.google.com', '573111236930', '111@gmail.com', 'sha256$tgphlrrnsDYJUWKo$c98266f95cc86a3fdd5a51fe075685a736be5a98600f88ae8efd148a075745b3', 1),
-('e76fb764-e02e-4054-aa41-fab816bf5189','user','access', 'Bogota', 'Colombia','www.google.com', '573111236930', '809@gmail.com', 'sha256$Hn5LCYhGVWgwr7p7$4d82f4508fcabb79230766bff8e509174b50c8618493b4cf5e0ed36b20ed4477', 0)
+('e76fb764-e02e-4054-aa41-fab816bf5189','user','access', 'Bogota', 'Colombia','www.google.com', '573111236930', '809@gmail.com', 'sha256$Hn5LCYhGVWgwr7p7$4d82f4508fcabb79230766bff8e509174b50c8618493b4cf5e0ed36b20ed4477', 0),
+('22253d96-f805-479c-babc-34e96fb0baf1','Jack','Dole', 'Mexico', 'Mexico DF','www.google.com', '573111437380', '423@gmail.com', 'sha256$PXqYLEm2CWhO8YaZ$548c59848704bed18aa3d4d01d5fa9ae670103823df5c15a9e191f1c6cf4534b', 0)
 ;
 UNLOCK TABLES;
 
@@ -107,12 +104,9 @@ CREATE TABLE `startup` (
 --
 LOCK TABLES `startup` WRITE;
 INSERT INTO `startup` VALUES
-('start1','KB1', 'asisvisa','www.google.com', 'USA', 'New York', '123@cube.com', '12105661896', '3', '1', '01', '1'),
-('start2','ED2', 'torre', 'www.google.com', 'USA', 'Silicon Valley', '456@cube.com', '12105661896', '2', '1','02', '1'),
-('start3','TM3', 'voyyo', 'www.google.com', 'Colombia', 'Bogota', '456@cube.com', '12105661896', '3', '1','03', '1'),
-('start4','AB4', 'check', 'www.google.com', 'Colombia', 'Bogota', '012@cube.com', '573111234890', '4', '3','04', '1'),
-('start5','JD5', 'igo', 'www.google.com', 'Mexico', 'Mexico DF', '345@cube.com', '573111234890', '3', '1','05', '1'),
-('start6','e76fb764-e02e-4054-aa41-fab816bf5189', 'tesla', 'www.google.com', 'USA', 'Silicon Valley', '902@cube.com', '573111234890', '3', '2','03', '1');
+('start1','805f8e9d-1e44-4c84-b3a9-6a86d34f444a', 'asisvisa','www.google.com', 'USA', 'New York', '123@cube.com', '12105661896', '3', '1', '01', '1'),
+('start2','e76fb764-e02e-4054-aa41-fab816bf5189', 'tesla', 'www.google.com', 'USA', 'Silicon Valley', '902@cube.com', '573111234890', '3', '2','03', '1'),
+('start3','22253d96-f805-479c-babc-34e96fb0baf1', 'torre', 'www.google.com', 'USA', 'Silicon Valley', '456@cube.com', '12105661896', '2', '1','02', '1');
 UNLOCK TABLES;
 
 --
@@ -152,9 +146,13 @@ CREATE TABLE `userRole` (
 -- Dumping data for table `userRole`
 --
 LOCK TABLES `userRole` WRITE;
-INSERT INTO `userRole` VALUES ('SR1','1adm'), ('KB1','2ru'), ('ED2','2ru'), ('TM3','2ru'), ('AB4','2ru'), ('JD5','2ru'),
+INSERT INTO `userRole` VALUES
+('1c58aa79-cffa-470d-9022-2b0c1ab38d4f', '1adm'),
+('805f8e9d-1e44-4c84-b3a9-6a86d34f444a','2ru'),
+('22253d96-f805-479c-babc-34e96fb0baf1','2ru'),
 ('82bbeca4-a6fc-480a-9950-2c6454b8d596','1adm'),
 ('e76fb764-e02e-4054-aa41-fab816bf5189','2ru') ;
+
 UNLOCK TABLES;
 
 
@@ -208,23 +206,19 @@ LOCK TABLES `kpiRegister` WRITE;
 INSERT INTO `kpiRegister` VALUES
 ('kpi1','2022-03-21','start1','100000', '20000', '4000', '1000', '20', '100000', '500', '30'),
 ('kpi2','2022-03-22','start2','200000', '20000', '5000', '2000', '10', '110000', '600', '40'),
-('kpi3','2022-03-23','start3','300000', '20000', '6000', '3000', '13', '120000', '700', '50'),
-('kpi4','2022-03-24','start4','400000', '20000', '7000', '4000', '40', '130000', '800', '60'),
-('kpi5','2022-03-25','start5','500000', '20000', '8000', '5000', '21', '140000', '900', '70')
+('kpi3','2022-03-23','start3','300000', '20000', '6000', '3000', '13', '120000', '700', '50')
 ;
 UNLOCK TABLES;
 
-CREATE USER IF NOT EXISTS '0A1'@'localhost' IDENTIFIED BY 'dasdasd';
-CREATE USER IF NOT EXISTS '0B2'@'localhost' IDENTIFIED BY '78923123';
-CREATE USER IF NOT EXISTS '0C3'@'localhost' IDENTIFIED BY '432fwwe4';
-CREATE USER IF NOT EXISTS '0D4'@'localhost' IDENTIFIED BY 'fwew323';
-CREATE USER IF NOT EXISTS '0E5'@'localhost' IDENTIFIED BY '3423kdqdq';
-CREATE USER IF NOT EXISTS '0F6'@'localhost' IDENTIFIED BY '89712kdsa';
-GRANT ALL PRIVILEGES ON `cubeTestDb`.* TO '0A1'@'localhost' WITH GRANT OPTION;
-GRANT SELECT ON `performance_schema`.* TO '0A1'@'localhost';
-GRANT SELECT, INSERT, UPDATE ON cubeTestDb.kpiRegister TO '0B2'@'localhost';
-GRANT SELECT, INSERT, UPDATE ON cubeTestDb.kpiRegister TO '0C3'@'localhost';
-GRANT SELECT, INSERT, UPDATE ON cubeTestDb.kpiRegister TO '0D4'@'localhost';
-GRANT SELECT, INSERT, UPDATE ON cubeTestDb.kpiRegister TO '0E5'@'localhost';
-GRANT SELECT, INSERT, UPDATE ON cubeTestDb.kpiRegister TO '0F6'@'localhost';
+CREATE USER IF NOT EXISTS '1c58aa79'@'localhost' IDENTIFIED BY 'dasdasd';
+CREATE USER IF NOT EXISTS '22253d96'@'localhost' IDENTIFIED BY '78923123';
+CREATE USER IF NOT EXISTS '805f8e9d'@'localhost' IDENTIFIED BY '432fwwe4';
+CREATE USER IF NOT EXISTS '82bbeca4'@'localhost' IDENTIFIED BY 'fwew323';
+CREATE USER IF NOT EXISTS 'e76fb764'@'localhost' IDENTIFIED BY '3423kdqdq';
+GRANT ALL PRIVILEGES ON `cubeTestDb`.* TO '1c58aa79'@'localhost' WITH GRANT OPTION;
+GRANT SELECT ON `performance_schema`.* TO '1c58aa79'@'localhost';
+GRANT SELECT, INSERT, UPDATE ON cubeTestDb.kpiRegister TO '22253d96'@'localhost';
+GRANT SELECT, INSERT, UPDATE ON cubeTestDb.kpiRegister TO '805f8e9d'@'localhost';
+GRANT SELECT, INSERT, UPDATE ON cubeTestDb.kpiRegister TO '82bbeca4'@'localhost';
+GRANT SELECT, INSERT, UPDATE ON cubeTestDb.kpiRegister TO 'e76fb764'@'localhost';
 FLUSH PRIVILEGES;
