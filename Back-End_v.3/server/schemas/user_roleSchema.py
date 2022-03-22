@@ -1,5 +1,5 @@
 from flask_marshmallow import Marshmallow
-from schemas.ma import ma
+from ma import ma
 
 
 class User_roleSchema(ma.Schema):

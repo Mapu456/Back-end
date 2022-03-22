@@ -1,5 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
-from models.db import db
+from db import db
 from models.role import *
 from models.user_role import userRole
 

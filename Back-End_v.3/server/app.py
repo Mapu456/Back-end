@@ -3,6 +3,12 @@ from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 from db import app, db
+from models.industry import Industry
+from models.startup import Startup
+from models.user import User
+from models.kpiRegister import KpiRegister
+from models.permission import Permission
+from models.role import Role
 from queries.get_queries import get_entity, get_entity_by_id
 from queries.post_queries import post_register
 from queries.put_queries import put_register

@@ -24,8 +24,10 @@ def put_register(entity, args, data):
         return {f"message": f"{entity} could not be found."}, 400
 
     result = set_values(result, data)
+
+    local_object = db.session.merge(result)
     db.session.commit()
-    return data
+    return entity_schema.jsonify(local_object)
 
 def get_registers(entity):
     if entity == os.environ.get('CUBE_ST'):

@@ -25,7 +25,8 @@ def post_register(entity, data):
     except NoResultFound:
         new_register = table(*value)
 
-        db.session.add(new_register)
+        local_object = db.session.merge(new_register)
+        db.session.add(local_object)
         db.session.commit()
         return entity_schema.jsonify(new_register)
     

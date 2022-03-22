@@ -22,8 +22,10 @@ def delete_register(entity, args):
         result = table.query.filter(entity_id == first_id).one()
     except NoResultFound:
         return {f"message": f"{entity} could not be found."}, 400
-
-    db.session.delete(result)
+    
+    
+    local_object = db.session.merge(result)
+    db.session.delete(local_object)
     db.session.commit()
     return jsonify({'message' : f'{entity} record has been deleted!'})
 
@@ -34,10 +36,3 @@ def get_registers(entity):
         return User, UserSchema()
     elif (entity == os.environ.get('CUBE_KPI')) or (entity == os.environ.get('CUBE_REG')):
         return KpiRegister, KpiRegisterSchema()
-
-def set_values(result, data):
-    valor = list(data.values())
-    key = list(data.keys())
-    for val in range(1, len(list(result.__table__._columns)), 1):
-        exec("%s" % ("result."+key[val-1]+"=valor[val-1]"))
-    return result
