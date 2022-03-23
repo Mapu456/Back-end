@@ -22,6 +22,7 @@ class Startup(db.Model):
     active = db.Column(db.Boolean)
     registers = db.relationship('KpiRegister', backref='startup_id', lazy=True)
 
+
     def __init__(self, startupId, userId, name, photoUrl, country, city,
                  emailAddress, phone, founders, femaleFounders, industry,
                  active):

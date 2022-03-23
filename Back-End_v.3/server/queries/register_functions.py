@@ -21,3 +21,8 @@ def get_many_registers(entity):
         return User, UserSchema(many=True)
     elif (entity == os.environ.get('CUBE_KPI')) or (entity == os.environ.get('CUBE_REG')):
         return KpiRegister, KpiRegisterSchema(many=True)
+
+def set_values(result, data):
+    for key, value in data.items():
+        exec("%s" % ("result."+key+"=data[key]"))
+    return result

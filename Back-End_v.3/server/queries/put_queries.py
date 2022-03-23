@@ -1,7 +1,9 @@
 from flask import jsonify
 from db import db
 from sqlalchemy.exc import NoResultFound
+from werkzeug.security import generate_password_hash as gen_pass
 from queries.register_functions import get_registers
+from queries.register_functions import set_values
 
 
 def put_register(entity, args, data):
@@ -17,15 +19,10 @@ def put_register(entity, args, data):
     except NoResultFound:
         return {f"message": f"{entity} could not be found."}, 400
 
+    if 'password' in data:
+        data['password'] = gen_pass(data['password'], method='sha256')
     result = set_values(result, data)
 
     local_object = db.session.merge(result)
     db.session.commit()
     return entity_schema.jsonify(local_object)
-
-def set_values(result, data):
-    valor = list(data.values())
-    key = list(data.keys())
-    for val in range(1, len(list(result.__table__._columns)), 1):
-        exec("%s" % ("result."+key[val-1]+"=valor[val-1]"))
-    return result
