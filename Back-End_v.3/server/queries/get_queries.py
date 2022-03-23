@@ -1,16 +1,11 @@
 import os
 from flask import jsonify
 from sqlalchemy.exc import NoResultFound
-from models.startup import Startup
-from models.user import User
-from models.kpiRegister import KpiRegister
-from schemas.startupSchema import StartupSchema
-from schemas.userSchema import UserSchema
-from schemas.kpiRegisterSchema import KpiRegisterSchema
+from queries.register_functions import get_many_registers
 
 
 def get_entity(entity):
-    table, entity_schemas = get_registers(entity)
+    table, entity_schemas = get_many_registers(entity)
 
     results = table.query.all()
     entity_results = entity_schemas.dump(results)
@@ -22,7 +17,7 @@ def get_entity_by_id(entity, args):
     first_column = keys[0]
     first_id = args.get(keys[0])
 
-    table, entity_schema = get_registers(entity)
+    table, entity_schema = get_many_registers(entity)
     entity_id = get_column(entity, table, first_column)
 
     try:
@@ -34,16 +29,6 @@ def get_entity_by_id(entity, args):
         return {f"message": f"{entity} {e}."}, 400
 
     return jsonify(entity_schema.dump(tmp_result))
-
-
-def get_registers(entity):
-    if entity == os.environ.get('CUBE_ST'):
-        return Startup, StartupSchema(many=True)
-    elif entity == os.environ.get('CUBE_USR'):
-        return User, UserSchema(many=True)
-    elif (entity == os.environ.get('CUBE_KPI')) or (entity == os.environ.get('CUBE_REG')):
-        return KpiRegister, KpiRegisterSchema(many=True)
-
 
 def get_column(entity, table, first_column):
     if (entity == os.environ.get('CUBE_KPI')) or (entity == os.environ.get('CUBE_REG')):

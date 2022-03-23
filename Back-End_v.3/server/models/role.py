@@ -20,5 +20,5 @@ class Role(db.Model):
 
 
     def __init__(self, roleId, role):
-        self.roleId = roleId
+        self.roleId = roleIdz
         self.role = role

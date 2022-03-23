@@ -26,24 +26,28 @@ def get_results(entity):
 
     return get_entity_by_id(entity, args)
 
+
 @app.route('/api/v1/<entity>', methods=['POST'])
 def insert_register(entity):
     data = request.get_json(force=True)
-    
+
     return post_register(entity, data)
+
 
 @app.route('/api/v1/<entity>', methods=['PUT'])
 def update_register(entity):
     args = request.args
     data = request.get_json(force=True)
-    
+
     return put_register(entity, args, data)
+
 
 @app.route('/api/v1/<entity>', methods=['DELETE'])
 def remove_register(entity):
     args = request.args
-    
+
     return delete_register(entity, args)
+
 
 if __name__ == "__main__":
     app.run(debug=True)

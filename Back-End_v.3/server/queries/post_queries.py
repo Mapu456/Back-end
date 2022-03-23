@@ -1,14 +1,8 @@
-import os
 from flask import jsonify
 from db import db
 from sqlalchemy.exc import NoResultFound
 import uuid
-from models.startup import Startup
-from models.user import User
-from models.kpiRegister import KpiRegister
-from schemas.startupSchema import StartupSchema
-from schemas.userSchema import UserSchema
-from schemas.kpiRegisterSchema import KpiRegisterSchema
+from queries.register_functions import get_registers
 
 
 def post_register(entity, data):
@@ -31,12 +25,3 @@ def post_register(entity, data):
         return entity_schema.jsonify(new_register)
     
     return jsonify({'message' : f'{entity} already exists'}), 400
-
-
-def get_registers(entity):
-    if entity == os.environ.get('CUBE_ST'):
-        return Startup, StartupSchema()
-    elif entity == os.environ.get('CUBE_USR'):
-        return User, UserSchema()
-    elif (entity == os.environ.get('CUBE_KPI')) or (entity == os.environ.get('CUBE_REG')):
-        return KpiRegister, KpiRegisterSchema()
